@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@mantine/core";
+import Link from "next/link";
 import React, { useState } from "react";
 
 type Props = {};
