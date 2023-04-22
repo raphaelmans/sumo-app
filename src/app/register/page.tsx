@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { LayoutAuth } from "@features/auth/layouts";
-import LoginForm from "@features/auth/login-form";
+import RegisterForm from "@features/auth/register-form";
 
-export default function Home() {
+export default function RegisterPage() {
   return (
     <LayoutAuth>
-      <LoginForm />
+      <RegisterForm />
     </LayoutAuth>
   );
 }
