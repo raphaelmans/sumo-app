@@ -3,9 +3,5 @@ import { LayoutAuth } from "@features/auth/layouts";
 import RegisterForm from "@features/auth/register-form";
 
 export default function RegisterPage() {
-  return (
-    <LayoutAuth>
-      <RegisterForm />
-    </LayoutAuth>
-  );
+  return <RegisterForm />;
 }
