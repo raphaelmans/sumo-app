@@ -1,9 +1,6 @@
 "use client";
 import React from "react";
-import {
-  Stack,
-  Text,
-} from "@mantine/core";
+import { Stack, Text } from "@mantine/core";
 import { NavBar } from "@shared/ui";
 import { LayoutHomeContent } from "@shared/layouts";
 import UserNewForm from "@features/user-master/user-new-form";
