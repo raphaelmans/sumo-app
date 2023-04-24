@@ -20,7 +20,7 @@ export default function DashboardPage() {
       <NavBar />
       <LayoutHomeContent>
         <Stack miw="100%" spacing={0}>
-          <Text fw="700" color="sumo.5" size="lg">
+          <Text fw="700" color="sumo.6" size="lg">
             Dashboard
           </Text>
 
@@ -60,7 +60,7 @@ export default function DashboardPage() {
               <Card.Section></Card.Section>
             </Card>
           </Flex>
-          <DashboardTable />
+          {/* <DashboardTable /> */}
         </Stack>
       </LayoutHomeContent>
     </Stack>
