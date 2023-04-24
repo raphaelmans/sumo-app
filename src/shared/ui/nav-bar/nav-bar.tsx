@@ -23,9 +23,9 @@ const navLinks: NavLink[] = [
     value: "subscription",
   },
   {
-    label: "Users",
-    href: "/users",
-    value: "users",
+    label: "User",
+    href: "/user",
+    value: "user",
   },
   {
     label: "Logs",
