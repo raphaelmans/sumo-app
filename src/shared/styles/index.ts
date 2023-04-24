@@ -16,7 +16,7 @@ export const tableSx: Sx = (theme) => ({
     background: theme.colors["sumo"][3],
     color: "white",
   },
-  "&& tbody tr:hover .tabler-icon": {
+  "&& tbody tr:hover .tabler-icon, tbody tr:hover .mantine-Text-root": {
     color: "white",
   },
   "&& tbody tr:hover .mantine-ActionIcon-root:hover": {

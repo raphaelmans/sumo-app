@@ -6,6 +6,7 @@ import {
   Divider,
   Flex,
   Group,
+  Space,
   Stack,
   Text,
   rem,
@@ -60,7 +61,8 @@ export default function DashboardPage() {
               <Card.Section></Card.Section>
             </Card>
           </Flex>
-          {/* <DashboardTable /> */}
+          <Space h={16} />
+          <DashboardTable />
         </Stack>
       </LayoutHomeContent>
     </Stack>

@@ -38,7 +38,7 @@ export type AuditLog = {
 };
 
 // UserSubscription
-type UserSubscription = {
+export type UserSubscription = {
   id: number;
   userId: number;
   subscriptionId: number;
@@ -46,4 +46,17 @@ type UserSubscription = {
   nextBillingDate: Date;
   cost: number;
   status: string;
+};
+
+export type DashboardItem = {
+  user: {
+    firstName: User["firstName"];
+    lastName: User["lastName"];
+  };
+  subscriptionName: Subscription["subscriptionName"];
+  categoryName: SubscriptionCategory["categoryName"];
+  subscriptionCost: Subscription["subscriptionCost"];
+  billingCycle: Subscription["billingCycle"];
+  nextBillingDate: Subscription["nextBillingDate"];
+  status: Subscription["status"];
 };

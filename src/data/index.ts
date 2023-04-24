@@ -1,5 +1,10 @@
 import { LogSummaryItem } from "@features/update-logs/view_types";
-import { Subscription, SubscriptionCategory } from "@types";
+import {
+  DashboardItem,
+  Subscription,
+  SubscriptionCategory,
+  User,
+} from "@types";
 
 //generate 5 LogSummaryItem data items
 export const sampleLogSummaryItems: LogSummaryItem[] = [
@@ -97,5 +102,96 @@ export const sampleSubscriptions: Subscription[] = [
     creationDate: new Date("2023-04-19"),
     lastUpdated: new Date("2023-04-19"),
     status: "active",
+  },
+];
+
+export const sampleUsers: User[] = [
+  {
+    id: 1,
+    email: "john.doe@example.com",
+    firstName: "John",
+    lastName: "Doe",
+    address: "123 Main St, Anytown, USA",
+    status: "active",
+  },
+  {
+    id: 2,
+    email: "jane.doe@example.com",
+    firstName: "Jane",
+    lastName: "Doe",
+    address: "456 Oak Ave, Anytown, USA",
+    status: "active",
+  },
+  {
+    id: 3,
+    email: "bob.smith@example.com",
+    firstName: "Bob",
+    lastName: "Smith",
+    address: "789 Elm St, Anytown, USA",
+    status: "inactive",
+  },
+  {
+    id: 4,
+    email: "sarah.johnson@example.com",
+    firstName: "Sarah",
+    lastName: "Johnson",
+    address: "101 Maple Ave, Anytown, USA",
+    status: "active",
+  },
+  {
+    id: 5,
+    email: "mike.brown@example.com",
+    firstName: "Mike",
+    lastName: "Brown",
+    address: "222 Pine St, Anytown, USA",
+    status: "active",
+  },
+];
+
+export const sampleDashboardData = [
+  {
+    user: { firstName: "John", lastName: "Doe" },
+    subscriptionName: "Netflix",
+    categoryName: "Entertainment",
+    subscriptionCost: 9.99,
+    billingCycle: "Monthly",
+    nextBillingDate: new Date("2023-05-15"),
+    status: "Active",
+  },
+  {
+    user: { firstName: "Jane", lastName: "Smith" },
+    subscriptionName: "Spotify",
+    categoryName: "Music",
+    subscriptionCost: 4.99,
+    billingCycle: "Monthly",
+    nextBillingDate: new Date("2023-05-10"),
+    status: "Active",
+  },
+  {
+    user: { firstName: "Michael", lastName: "Brown" },
+    subscriptionName: "Gym Membership",
+    categoryName: "Fitness",
+    subscriptionCost: 49.99,
+    billingCycle: "Monthly",
+    nextBillingDate: new Date("2023-05-01"),
+    status: "INACTIVE",
+  },
+  {
+    user: { firstName: "Emily", lastName: "Johnson" },
+    subscriptionName: "Coursera",
+    categoryName: "Education",
+    subscriptionCost: 39.99,
+    billingCycle: "Monthly",
+    nextBillingDate: new Date("2023-05-20"),
+    status: "Active",
+  },
+  {
+    user: { firstName: "Daniel", lastName: "Williams" },
+    subscriptionName: "Todoist",
+    categoryName: "Productivity",
+    subscriptionCost: 3.99,
+    billingCycle: "Monthly",
+    nextBillingDate: new Date("2023-05-08"),
+    status: "Active",
   },
 ];

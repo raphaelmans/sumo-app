@@ -1,19 +1,17 @@
 import React from "react";
 import { sampleCategories, sampleSubscriptions } from "@data";
-import { ActionIcon, Group, Sx, Table, rem } from "@mantine/core";
+import { ActionIcon, Group, Text, TextProps } from "@mantine/core";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
 import { format } from "date-fns";
 import {
   ColumnDef,
   createColumnHelper,
-  flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { Subscription } from "@types";
-import { tableSx } from "@shared/styles";
 import AppTable from "@shared/ui/app-table";
 
 type Props = {};
@@ -44,7 +42,15 @@ const SubscriptionTable = (props: Props) => {
       header: () => "LAST UPDATE",
     }),
     columnHelper.accessor("status", {
-      cell: (props) => props.getValue(),
+      cell: (props) => {
+        const style: TextProps = {
+          color:
+            String(props.getValue()).toLowerCase() === "active"
+              ? "green"
+              : "red",
+        };
+        return <Text {...style}>{String(props.getValue()).toUpperCase()}</Text>;
+      },
       header: () => "STATUS",
     }),
     columnHelper.display({

@@ -1,12 +1,7 @@
 import React from "react";
-import {
-  sampleCategories,
-  sampleDashboardData,
-  sampleSubscriptions,
-} from "@data";
+import { sampleUsers } from "@data";
 import { ActionIcon, Group, Text, TextProps } from "@mantine/core";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
-import { format } from "date-fns";
 import {
   ColumnDef,
   createColumnHelper,
@@ -15,41 +10,30 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { DashboardItem } from "@types";
+import { User } from "@types";
 import AppTable from "@shared/ui/app-table";
 
 type Props = {};
 
-const columnHelper = createColumnHelper<DashboardItem>();
+const columnHelper = createColumnHelper<User>();
 
-const DashboardTable = (props: Props) => {
-  const columns: ColumnDef<DashboardItem, any>[] = [
-    columnHelper.accessor("user", {
-      cell: (props) => {
-        const user = props.getValue();
-        return `${user.firstName} ${user.lastName}`;
-      },
-      header: () => "USER",
-    }),
-    columnHelper.accessor("subscriptionName", {
+const UserTable = (props: Props) => {
+  const columns: ColumnDef<User, any>[] = [
+    columnHelper.accessor("lastName", {
       cell: (props) => props.getValue(),
-      header: () => "SUBSCRIPTION",
+      header: () => "LAST NAME",
     }),
-    columnHelper.accessor("categoryName", {
+    columnHelper.accessor("firstName", {
       cell: (props) => props.getValue(),
-      header: () => "CATEGORY",
+      header: () => "FIRST NAME",
     }),
-    columnHelper.accessor("subscriptionCost", {
-      cell: (props) => `${props.getValue()} PHP`,
-      header: () => "COST",
-    }),
-    columnHelper.accessor("billingCycle", {
+    columnHelper.accessor("email", {
       cell: (props) => props.getValue(),
-      header: () => "BILLING CYCLE",
+      header: () => "EMAIL",
     }),
-    columnHelper.accessor("nextBillingDate", {
-      cell: (props) => format(props.getValue(), "P"),
-      header: () => "BILLING DATE",
+    columnHelper.accessor("address", {
+      cell: (props) => props.getValue(),
+      header: () => "ADDRESS",
     }),
     columnHelper.accessor("status", {
       cell: (props) => {
@@ -82,7 +66,7 @@ const DashboardTable = (props: Props) => {
   ];
 
   const table = useReactTable({
-    data: sampleDashboardData,
+    data: sampleUsers,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -96,4 +80,4 @@ const DashboardTable = (props: Props) => {
   return <AppTable table={table} />;
 };
 
-export default DashboardTable;
+export default UserTable;
