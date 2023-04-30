@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const theme: MantineThemeOverride = {
-  fontFamily: inter.style.fontFamily,
+  fontFamily: `${inter.style.fontFamily}, sans-serif`,
   colors: {
     sumo: [
       "#FBE9EC",
