@@ -13,9 +13,7 @@ import {
 import { NavBar } from "@shared/ui";
 import { LayoutHomeContent } from "@shared/layouts";
 import NextImage from "next/image";
-import {
-  subscriptionShowcaseSVG,
-} from "@features/subscription/assets";
+import { subscriptionShowcaseSVG } from "@features/subscription/assets";
 
 export default function SubscriptionNewReminderPage() {
   return (
@@ -48,11 +46,15 @@ export default function SubscriptionNewReminderPage() {
                 <Text size={18} fw="700" mt={64}>
                   Subscription Name
                 </Text>
-                <Text size={32}>Yoga AI Coach</Text>
+                <Text size={32} lh="100%" mb={16}>
+                  Yoga AI Coach
+                </Text>
                 <Text size={18} fw="700">
                   Category
                 </Text>
-                <Text size={32}>Fitness</Text>
+                <Text size={32} lh="100%" mb={16}>
+                  Fitness
+                </Text>
                 <Stack align="center">
                   <Text size={18} fw="700">
                     Billing Plan
@@ -69,8 +71,12 @@ export default function SubscriptionNewReminderPage() {
                       h={200}
                       w={200}
                     >
-                      <Text>Monthly</Text>
-                      <Text>100 PHP</Text>
+                      <Text size={32} fw="700" lh="155%">
+                        Monthly
+                      </Text>
+                      <Text size={18} fw="700" lh="155%" color="sumo.4">
+                        100 PHP
+                      </Text>
                     </Flex>
 
                     <Flex
@@ -83,10 +89,24 @@ export default function SubscriptionNewReminderPage() {
                       sx={{
                         borderRadius: rem(10),
                       }}
+                      px={47}
                     >
-                      <Text>-17 %</Text>
-                      <Text>Annual</Text>
-                      <Text>1000 PHP</Text>
+                      <Text
+                        lh="100%"
+                        fw="700"
+                        size={12}
+                        color="sumo.2"
+                        align="right"
+                        w="100%"
+                      >
+                        -17 %
+                      </Text>
+                      <Text size={32} fw="700" lh="155%">
+                        Annual
+                      </Text>
+                      <Text size={18} fw="700" lh="155%" color="sumo.4">
+                        1000 PHP
+                      </Text>
                     </Flex>
                   </Group>
                   <Button
