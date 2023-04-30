@@ -6,6 +6,8 @@ import { LayoutHomeContent } from "@shared/layouts";
 import { IconFilter, IconPlus, IconTableExport } from "@tabler/icons-react";
 import UserTable from "@features/user-master/user-table";
 import NextLink from "next/link";
+import UserNewForm from "@features/user-master/user-new-form";
+import UserEditForm from "@features/user-master/user-edit-form";
 
 export default function UserPage() {
   return (
@@ -14,8 +16,9 @@ export default function UserPage() {
       <LayoutHomeContent>
         <Stack miw="100%" spacing={0}>
           <Text size="lg" fw="500">
+            User Master{" "}
             <Text component="span" fw="700" color="sumo.6">
-              User Master
+              {/* TODO: Make dynamic */}/ John Doe
             </Text>
           </Text>
           <Flex w="100%" justify="flex-end" gap={8} h={50}>
@@ -53,6 +56,13 @@ export default function UserPage() {
               New User
             </Button>
           </Flex>
+          <UserEditForm mb={16} />
+
+          <Text size="lg" fw="500">
+            <Text component="span" fw="700" color="sumo.6">
+              Subscriptions
+            </Text>
+          </Text>
           <UserTable />
         </Stack>
       </LayoutHomeContent>
