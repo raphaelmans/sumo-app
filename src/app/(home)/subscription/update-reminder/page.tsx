@@ -40,67 +40,23 @@ export default function SubscriptionUpdateReminderPage() {
 
               <Stack align="center" mt={16}>
                 <Text color="sumo.4" size={28} fw="600" transform="uppercase">
-                  Introducing our latest subscription offering
+                Our subscription has been refreshed and improved - 
                 </Text>
                 <Text color="sumo.5" size={32} fw="700" transform="uppercase">
-                  check it out today!
+                check out the updates.
                 </Text>
-                <Text size={18} fw="700" mt={64}>
-                  Subscription Name
-                </Text>
-                <Text size={32}>Yoga AI Coach</Text>
-                <Text size={18} fw="700">
-                  Category
-                </Text>
-                <Text size={32}>Fitness</Text>
-                <Stack align="center">
-                  <Text size={18} fw="700">
-                    Billing Plan
-                  </Text>
-                  <Group>
-                    <Flex
-                      sx={{
-                        borderRadius: rem(25),
-                      }}
-                      direction="column"
-                      align="center"
-                      justify="center"
-                      bg="rgba(248,209,205,.25)"
-                      h={200}
-                      w={200}
-                    >
-                      <Text>Monthly</Text>
-                      <Text>100 PHP</Text>
-                    </Flex>
-
-                    <Flex
-                      direction="column"
-                      align="center"
-                      justify="center"
-                      bg="rgba(248,209,205,.25)"
-                      h={200}
-                      w={200}
-                      sx={{
-                        borderRadius: rem(10),
-                      }}
-                    >
-                      <Text>-17 %</Text>
-                      <Text>Annual</Text>
-                      <Text>1000 PHP</Text>
-                    </Flex>
-                  </Group>
+              
                   <Button
-                    variant="outline"
+                    variant="light"
                     bg="white"
                     sx={{
                       boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25);",
                     }}
                     mt={16}
                   >
-                    Subscribe
+                    See Updates
                   </Button>
                 </Stack>
-              </Stack>
             </Stack>
           </Center>
         </Stack>
