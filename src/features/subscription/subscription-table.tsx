@@ -1,5 +1,5 @@
 import React from "react";
-import { sampleCategories, sampleSubscriptions } from "@data";
+import { sampleCategories } from "@data";
 import { ActionIcon, Group, Text, TextProps } from "@mantine/core";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
 import { format } from "date-fns";
@@ -20,10 +20,8 @@ type Props = {};
 const columnHelper = createColumnHelper<Subscription>();
 
 const SubscriptionTable = (props: Props) => {
-  
-  const {data} = useSubscriptions()
-  console.log("🚀 ~ file: subscription-table.tsx:25 ~ SubscriptionTable ~ data:", data)
-  
+  const { data } = useSubscriptions();
+
   const columns: ColumnDef<Subscription, any>[] = [
     columnHelper.accessor("subscriptionName", {
       cell: (props) => props.getValue(),
@@ -39,11 +37,11 @@ const SubscriptionTable = (props: Props) => {
       header: () => "COST",
     }),
     columnHelper.accessor("creationDate", {
-      cell: (props) => format(props.getValue(), "P"),
+      cell: (props) => format(new Date(props.getValue()), "P"),
       header: () => "CREATION",
     }),
     columnHelper.accessor("lastUpdated", {
-      cell: (props) => format(props.getValue(), "P"),
+      cell: (props) => format(new Date(props.getValue()), "P"),
       header: () => "LAST UPDATE",
     }),
     columnHelper.accessor("status", {
@@ -77,7 +75,7 @@ const SubscriptionTable = (props: Props) => {
   ];
 
   const table = useReactTable({
-    data: sampleSubscriptions,
+    data: data?.data ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
