@@ -1,7 +1,9 @@
 import z from 'zod'
-import { BillingCycle } from "./constants";
-import { createSubscriptionSchema } from "./form-utils";
+import { billingCycle } from "./constants";
+import { createSubscriptionSchema, editSubscriptionSchema } from "./form-utils";
 
-export type BillingCycle = (typeof BillingCycle)[number];
+export type BillingCycle = (typeof billingCycle)[number];
+export type SubscriptionStatus = (typeof SubscriptionStatus)[number];
 
 export type CreateSubscriptionForm = z.infer<typeof createSubscriptionSchema>;
+export type EditSubscriptionForm = z.infer<typeof editSubscriptionSchema>;

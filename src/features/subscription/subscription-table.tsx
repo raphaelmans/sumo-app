@@ -14,6 +14,7 @@ import {
 import { Subscription } from "@types";
 import AppTable from "@shared/ui/app-table";
 import { useSubscriptions } from "./hooks";
+import NextLink from 'next/link'
 
 type Props = {};
 
@@ -60,9 +61,10 @@ const SubscriptionTable = (props: Props) => {
       id: "actions",
       header: "ACTIONS",
       cell: (props) => {
+       const data = props.row.original
         return (
           <Group spacing={2}>
-            <ActionIcon color="blue.8">
+            <ActionIcon component={NextLink} href={`/subscription/edit?id=${data.id}`} color="blue.8">
               <IconEdit />
             </ActionIcon>
             <ActionIcon color="red.8">

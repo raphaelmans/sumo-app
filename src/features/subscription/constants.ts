@@ -1,2 +1,2 @@
-export const BillingCycle = ["Monthly", "Yearly"] as const;
-export const SubscriptionStatus = ["Active", "Inactive"] as const;
+export const billingCycle = ["Monthly", "Yearly"] as const;
+export const subscriptionStatus = ["Active", "Inactive"] as const;

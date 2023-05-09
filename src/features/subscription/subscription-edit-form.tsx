@@ -1,40 +1,47 @@
-import {
-  Box,
-  Button,
-  Group,
-  Input,
-  NativeSelect,
-  Select,
-  Stack,
-} from "@mantine/core";
+import { Box, Button, Group, Input, NativeSelect, Stack } from "@mantine/core";
 import React from "react";
 import { useCreateSubscription } from "./hooks";
 import {
-  CreateSubscriptionForm,
+  BillingCycle,
+  EditSubscriptionForm,
+  SubscriptionStatus,
 } from "./types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createSubscriptionSchema } from "./form-utils";
 import { useForm } from "react-hook-form";
 import { billingCycle, subscriptionStatus } from "./constants";
-import { SubscriptionCreate } from "@shared/services/subscription-service";
+import { SubscriptionEdit } from "@shared/services/subscription-service";
 import { useSubscriptionCategories } from "@features/subscription-category/hooks";
+import { Subscription } from "@types";
+import { useEditSubscription } from "./hooks/use-edit-subscripion";
 
-const SubscriptionNewForm = () => {
+type Props = {
+  subscription: Subscription;
+};
+
+const SubscriptionEditForm = ({ subscription }: Props) => {
   const {
     register,
     formState: { isValid, errors },
     handleSubmit,
-  } = useForm<CreateSubscriptionForm>({
+  } = useForm<EditSubscriptionForm>({
     resolver: zodResolver(createSubscriptionSchema),
     mode: "onChange",
+
+    defaultValues: {
+      subscriptionName: subscription.subscriptionName,
+      subscriptionCategoryId: subscription.subscriptionCategoryId.toString(),
+      subscriptionCost: subscription.subscriptionCost.toString(),
+      billingCycle: subscription.billingCycle as BillingCycle,
+      status: subscription.status as SubscriptionStatus,
+    },
   });
 
+  const { editSubscription, isMutating } = useEditSubscription();
   const { data: subscriptionCategories } = useSubscriptionCategories();
-  const { createSubscription, isMutating } = useCreateSubscription();
 
-  const onSubmit = (data: CreateSubscriptionForm) => {
-    // TODO: UPdate subscriptionCategoryId dynamic
-    const subscriptionCreate: SubscriptionCreate = {
+  const onSubmit = (data: EditSubscriptionForm) => {
+    const subEdit: SubscriptionEdit = {
       subscriptionName: data.subscriptionName,
       subscriptionCategoryId: Number(data.subscriptionCategoryId),
       subscriptionCost: Number(data.subscriptionCost),
@@ -42,8 +49,9 @@ const SubscriptionNewForm = () => {
       status: data.status,
       appUserId: 1,
     };
-    createSubscription({
-      subscription: subscriptionCreate,
+    editSubscription({
+      id: subscription.id,
+      subscription: subEdit,
     });
   };
 
@@ -82,7 +90,7 @@ const SubscriptionNewForm = () => {
         <NativeSelect
           label="Billing Cycle"
           placeholder="Choose"
-          data={billingCycle.map((cycle) => ({
+          data={...billingCycle.map((cycle) => ({
             label: cycle,
             value: cycle,
           }))}
@@ -118,7 +126,7 @@ const SubscriptionNewForm = () => {
             bg="white"
             type="submit"
           >
-            ADD
+            Edit
           </Button>
         </Group>
       </Stack>
@@ -126,4 +134,4 @@ const SubscriptionNewForm = () => {
   );
 };
 
-export default SubscriptionNewForm;
+export default SubscriptionEditForm;
