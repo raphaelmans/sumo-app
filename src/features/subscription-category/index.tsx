@@ -1,0 +1,1 @@
+export {default as SubscriptionCategoryNewForm} from './subscription-category-new-form'

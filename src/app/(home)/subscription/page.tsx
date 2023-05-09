@@ -39,6 +39,7 @@ export default function SubscriptionPage() {
             >
               <IconFilter />
             </ActionIcon>
+
             <Button
               px={8}
               h={36}
@@ -51,6 +52,19 @@ export default function SubscriptionPage() {
             >
               <IconPlus color="white" size={rem(16)} />
               New Subscription
+            </Button>
+            <Button
+              px={8}
+              h={36}
+              sx={{
+                boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25);",
+              }}
+              variant='light'
+              component={NextLink}
+              href="/subscription/new-category"
+            >
+              <IconPlus color="#E04D60" size={rem(16)} />
+               Category
             </Button>
           </Flex>
           <SubscriptionTable />
