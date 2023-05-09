@@ -13,12 +13,17 @@ import {
 } from "@tanstack/react-table";
 import { Subscription } from "@types";
 import AppTable from "@shared/ui/app-table";
+import { useSubscriptions } from "./hooks";
 
 type Props = {};
 
 const columnHelper = createColumnHelper<Subscription>();
 
 const SubscriptionTable = (props: Props) => {
+  
+  const {data} = useSubscriptions()
+  console.log("🚀 ~ file: subscription-table.tsx:25 ~ SubscriptionTable ~ data:", data)
+  
   const columns: ColumnDef<Subscription, any>[] = [
     columnHelper.accessor("subscriptionName", {
       cell: (props) => props.getValue(),

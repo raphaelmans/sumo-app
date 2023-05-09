@@ -8,18 +8,17 @@ export type SubscriptionCategory = {
 export type Subscription = {
   id: number;
   subscriptionName: string;
-  subscriptionCategoryId: number;
   subscriptionCost: number;
   billingCycle: string;
-  nextBillingDate: Date;
-  endDate: Date | null;
   creationDate: Date;
   lastUpdated: Date;
   status: string;
+  subscriptionCategoryId: number;
+  appUserId: number;
 };
 
 // User
-export type User = {
+export type AppUser = {
   id: number;
   email: string;
   firstName: string;
@@ -31,27 +30,28 @@ export type User = {
 // AuditLog
 export type AuditLog = {
   id: number;
-  userId: number;
+  appUserId: number;
   subscriptionId: number;
   action: string;
   timestamp: Date;
 };
 
 // UserSubscription
+
 export type UserSubscription = {
   id: number;
-  userId: number;
-  subscriptionId: number;
   subscriptionDate: Date;
   nextBillingDate: Date;
   cost: number;
   status: string;
+  appUserId: number;
+  subscriptionId: number;
 };
 
 export type DashboardItem = {
   user: {
-    firstName: User["firstName"];
-    lastName: User["lastName"];
+    firstName: AppUser["firstName"];
+    lastName: AppUser["lastName"];
   };
   subscriptionName: Subscription["subscriptionName"];
   categoryName: SubscriptionCategory["categoryName"];

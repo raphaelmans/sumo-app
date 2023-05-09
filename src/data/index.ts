@@ -3,7 +3,7 @@ import {
   DashboardItem,
   Subscription,
   SubscriptionCategory,
-  User,
+  AppUser,
 } from "@types";
 
 //generate 5 LogSummaryItem data items
@@ -105,7 +105,7 @@ export const sampleSubscriptions: Subscription[] = [
   },
 ];
 
-export const sampleUsers: User[] = [
+export const sampleUsers: AppUser[] = [
   {
     id: 1,
     email: "john.doe@example.com",

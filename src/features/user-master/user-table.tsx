@@ -10,15 +10,15 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { User } from "@types";
+import { AppUser } from "@types";
 import AppTable from "@shared/ui/app-table";
 
 type Props = {};
 
-const columnHelper = createColumnHelper<User>();
+const columnHelper = createColumnHelper<AppUser>();
 
 const UserTable = (props: Props) => {
-  const columns: ColumnDef<User, any>[] = [
+  const columns: ColumnDef<AppUser, any>[] = [
     columnHelper.accessor("lastName", {
       cell: (props) => props.getValue(),
       header: () => "LAST NAME",
