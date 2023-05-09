@@ -5,8 +5,8 @@ import { AxiosResponse } from "axios";
 import { MutationFetcher } from "swr/mutation";
 
 export const SubscriptionCategoryAPIRoutes = {
-  getAllSubscriptions: `/SubscriptionAPI`,
-  createSubscriptionCategory: `/SubscriptionAPI`,
+  getAllSubscriptionCategories: `/SubscriptionCategoryAPI/GetAllSubscriptionCategories`,
+  createSubscriptionCategory: `/SubscriptionCategoryAPI/CreateSubscriptionCategory`,
 };
 
 export const SubscriptionCategoryKey = {
@@ -15,7 +15,7 @@ export const SubscriptionCategoryKey = {
 
 export const SubscriptionCategoryService = {
   getAllSubscriptionCategories: () =>
-    baseFetcher.get<SubscriptionCategory[]>(SubscriptionCategoryAPIRoutes.getAllSubscriptions),
+    baseFetcher.get<SubscriptionCategory[]>(SubscriptionCategoryAPIRoutes.getAllSubscriptionCategories),
   createSubscriptionCategory: (sub: SubscriptionCategoryCreate) =>
     baseFetcher.post<string>(SubscriptionCategoryAPIRoutes.createSubscriptionCategory, sub),
 };

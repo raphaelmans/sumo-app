@@ -15,6 +15,7 @@ import { createSubscriptionSchema } from "./form-utils";
 import { useForm } from "react-hook-form";
 import { BillingCycle, SubscriptionStatus } from "./constants";
 import { SubscriptionCreate } from "@shared/services/subscription-service";
+import { useSubscriptionCategories } from "@features/subscription-category/hooks";
 
 type Props = {};
 
@@ -29,14 +30,18 @@ const SubscriptionNewForm = (props: Props) => {
   });
 
   const { createSubscription, isMutating } = useCreateSubscription();
-
+  const {
+    data: subscriptionCategories,
+    isLoading,
+  } = useSubscriptionCategories()
+  
   const onSubmit = (data: CreateSubscriptionForm) => {
 
     // TODO: UPdate subscriptionCategoryId dynamic
     const subscriptionCreate: SubscriptionCreate = {
       subscriptionName: data.subscriptionName,
-      subscriptionCategoryId: data.subscriptionCategoryId,
-      subscriptionCost: data.subscriptionCost,
+      subscriptionCategoryId: Number(data.subscriptionCategoryId),
+      subscriptionCost: Number(data.subscriptionCost),
       billingCycle: data.billingCycle,
       status: data.status,
       appUserId: 1,
@@ -64,18 +69,25 @@ const SubscriptionNewForm = (props: Props) => {
             {...register("subscriptionName")}
           />
         </Input.Wrapper>
-        <NativeSelect
+        
+        {
+          subscriptionCategories?.data && 
+          <NativeSelect
           label="Subscription Category"
           placeholder="Choose"
-          data={[
-            { label: "Food", value: "1" },
-            { label: "Entertainment", value: "2" },
-            { label: "Health", value: "3" },
-            { label: "Travel", value: "4" },
-          ]}
+          data={
+            subscriptionCategories.data.map(item=>(
+              {
+                label: item.categoryName,
+                value: String(item.id)
+              }
+            ))
+          }
           error={errors?.subscriptionCategoryId?.message?.toString()}
           {...register("subscriptionCategoryId")}
         />
+        }
+  
         <NativeSelect
           label="Billing Cycle"
           placeholder="Choose"
@@ -117,7 +129,6 @@ const SubscriptionNewForm = (props: Props) => {
           >
             ADD
           </Button>
-          <Button>BACK</Button>
         </Group>
       </Stack>
     </Box>

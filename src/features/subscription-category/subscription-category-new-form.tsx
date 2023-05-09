@@ -5,7 +5,7 @@ import { SubscriptionCategoryCreate } from "@shared/services/subscription-catego
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createSubscriptionCategorySchema } from "./form-utils";
 import { useForm } from "react-hook-form";
-import { useCreateSubscriptionCategory } from "./hooks";
+import { useCreateSubscriptionCategory, useSubscriptionCategories } from "./hooks";
 
 type Props = {};
 
@@ -61,7 +61,6 @@ const SubscriptionCategoryNewForm = (props: Props) => {
           >
             ADD
           </Button>
-          <Button>BACK</Button>
         </Group>
       </Stack>
     </Box>
