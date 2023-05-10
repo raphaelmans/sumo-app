@@ -9,6 +9,7 @@ export const AppUserRoutes = {
   getAllAppUser: `/AppUserAPI/list`,
   createAppUser: `/AppUserAPI/add`,
   editAppUserById: `/AppUserAPI/edit`,
+  deleteAppUserById: `/AppUserAPI/delete`,
 };
 
 export const AppUserKey = {
@@ -28,6 +29,12 @@ export const AppUserService = {
     }),
   editAppUserById: (data: AppUserEdit) =>
     baseFetcher.put(AppUserRoutes.editAppUserById, data),
+  deleteAppUserById: (id: number) =>
+    baseFetcher.delete(AppUserRoutes.deleteAppUserById, {
+      params: {
+        id,
+      },
+    }),
 };
 
 export type AppUserCreate = Omit<AppUser, "id">;
@@ -47,3 +54,13 @@ export const editAppUserMutation: MutationFetcher<
   },
   string
 > = (_, { arg }) => AppUserService.editAppUserById(arg.data);
+
+export const deleteAppUserMutation: MutationFetcher<
+  AxiosResponse,
+  {
+    id: number;
+  },
+  string
+> = async (_, { arg }) => {
+  return AppUserService.deleteAppUserById(arg.id);
+};

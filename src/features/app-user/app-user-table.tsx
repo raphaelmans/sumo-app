@@ -12,15 +12,16 @@ import {
 import { AppUser } from "@types";
 import AppTable from "@shared/ui/app-table";
 import { useAppUsers } from "./hooks";
-import NextLink from 'next/link'
+import NextLink from "next/link";
+import { useDeleteAppUser } from "./hooks/use-delete-app-user";
 
 type Props = {};
 
 const columnHelper = createColumnHelper<AppUser>();
 
 const AppUserTable = (props: Props) => {
-
   const { data } = useAppUsers();
+  const { deleteAppUser, isMutating } = useDeleteAppUser();
 
   const columns: ColumnDef<AppUser, any>[] = [
     columnHelper.accessor("lastName", {
@@ -55,13 +56,30 @@ const AppUserTable = (props: Props) => {
       id: "actions",
       header: "ACTIONS",
       cell: (props) => {
-       const data = props.row.original
+        const data = props.row.original;
         return (
           <Group spacing={2}>
-            <ActionIcon component={NextLink} href={`/user/edit?id=${data.id}`} color="blue.8">
+            <ActionIcon
+              component={NextLink}
+              href={`/user/edit?id=${data.id}`}
+              color="blue.8"
+            >
               <IconEdit />
             </ActionIcon>
-            <ActionIcon color="red.8">
+            <ActionIcon
+              onClick={() =>
+                deleteAppUser(
+                  {
+                    id: data.id,
+                  },
+                  {
+                    revalidate: true,
+                  }
+                )
+              }
+              loading={isMutating}
+              color="red.8"
+            >
               <IconTrash />
             </ActionIcon>
           </Group>
