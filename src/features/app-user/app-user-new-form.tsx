@@ -45,7 +45,7 @@ const AppUserNewForm = (props: Props) => {
   };
 
   const onError = (error: any) => {
-    console.log(
+    console.error(
       "🚀 ~ file: subscription-new-form.tsx:43 ~ onError ~ error:",
       error
     );

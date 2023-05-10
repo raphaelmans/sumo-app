@@ -17,7 +17,7 @@ export default function UserEditPage({
   };
 }) {
   if (!id) {
-    redirect("/subscription");
+    redirect("/user");
   }
   const { data, isLoading } = useGetAppUser(id);
 

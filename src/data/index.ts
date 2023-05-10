@@ -1,39 +1,7 @@
-import { LogSummaryItem } from "@features/update-logs/view_types";
 import {
-  DashboardItem,
-  Subscription,
   SubscriptionCategory,
-  AppUser,
 } from "@types";
 
-//generate 5 LogSummaryItem data items
-export const sampleLogSummaryItems: LogSummaryItem[] = [
-  {
-    categoryName: "Entertainment",
-    subscriptionName: "Netflix",
-    lastUpdated: new Date("2023-04-24T00:00:00.000Z"),
-  },
-  {
-    categoryName: "Music",
-    subscriptionName: "Spotify",
-    lastUpdated: new Date("2023-04-23T00:00:00.000Z"),
-  },
-  {
-    categoryName: "Fitness",
-    subscriptionName: "Gym Membership",
-    lastUpdated: new Date("2023-04-20T00:00:00.000Z"),
-  },
-  {
-    categoryName: "Education",
-    subscriptionName: "Coursera",
-    lastUpdated: new Date("2023-04-19T00:00:00.000Z"),
-  },
-  {
-    categoryName: "Productivity",
-    subscriptionName: "Todoist",
-    lastUpdated: new Date("2023-04-18T00:00:00.000Z"),
-  },
-];
 
 export const sampleCategories: SubscriptionCategory[] = [
   {
@@ -51,49 +19,6 @@ export const sampleCategories: SubscriptionCategory[] = [
   {
     id: 4,
     categoryName: "Pro",
-  },
-];
-
-export const sampleUsers: AppUser[] = [
-  {
-    id: 1,
-    email: "john.doe@example.com",
-    firstName: "John",
-    lastName: "Doe",
-    address: "123 Main St, Anytown, USA",
-    status: "active",
-  },
-  {
-    id: 2,
-    email: "jane.doe@example.com",
-    firstName: "Jane",
-    lastName: "Doe",
-    address: "456 Oak Ave, Anytown, USA",
-    status: "active",
-  },
-  {
-    id: 3,
-    email: "bob.smith@example.com",
-    firstName: "Bob",
-    lastName: "Smith",
-    address: "789 Elm St, Anytown, USA",
-    status: "inactive",
-  },
-  {
-    id: 4,
-    email: "sarah.johnson@example.com",
-    firstName: "Sarah",
-    lastName: "Johnson",
-    address: "101 Maple Ave, Anytown, USA",
-    status: "active",
-  },
-  {
-    id: 5,
-    email: "mike.brown@example.com",
-    firstName: "Mike",
-    lastName: "Brown",
-    address: "222 Pine St, Anytown, USA",
-    status: "active",
   },
 ];
 

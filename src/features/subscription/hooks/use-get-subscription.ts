@@ -5,14 +5,14 @@ import {
 import { useMemo } from "react";
 import useSWR from "swr";
 
-export const useGetSubscription = (id: string) => {
+export const useGetSubscription = (id?: string) => {
   const cacheKey = useMemo(
-    () => SubscriptionAPIRoutes.getSubscriptionById(id),
+    () => SubscriptionAPIRoutes.getSubscriptionById(id ?? "9999"),
     [id]
   );
 
   const { data, isLoading, isValidating, error } = useSWR(cacheKey, () =>
-    SubscriptionService.getSubscriptionById(id)
+    id ? SubscriptionService.getSubscriptionById(id) : null
   );
 
   return {

@@ -20,6 +20,19 @@ export type Subscription = {
   appUserId: number;
 };
 
+export type ArchivedSubscription = {
+  id: number;
+  subscriptionId: number,
+  subscriptionName: string;
+  subscriptionCost: number;
+  billingCycle: string;
+  creationDate: Date;
+  lastUpdated: Date;
+  status: SubscriptionStatus;
+  subscriptionCategoryId: number;
+  appUserId: number;
+};
+
 // User
 export type AppUser = {
   id: number;
@@ -35,7 +48,7 @@ export type AppUser = {
 export type AuditLog = {
   id: number;
   appUserId: number;
-  subscriptionId: number;
+  pastSubscription: ArchivedSubscription;
   action: string;
   timestamp: Date;
 };
