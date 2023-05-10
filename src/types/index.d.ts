@@ -22,7 +22,7 @@ export type Subscription = {
 
 export type ArchivedSubscription = {
   id: number;
-  subscriptionId: number,
+  subscriptionId: number;
   subscriptionName: string;
   subscriptionCost: number;
   billingCycle: string;
@@ -33,6 +33,12 @@ export type ArchivedSubscription = {
   appUserId: number;
 };
 
+export type RegisterAuthUser = {
+  password: string;
+  confirm_pass: string;
+  email: string;
+  role: string;
+};
 // User
 export type AppUser = {
   id: number;

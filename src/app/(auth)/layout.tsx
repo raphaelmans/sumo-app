@@ -1,4 +1,5 @@
 import { LayoutAuth } from "@features/auth/layouts";
+import { redirectLoggedUser } from "@shared/auth-guard";
 import { RootStyleRegistry } from "@shared/providers";
 
 export const metadata = {
@@ -11,6 +12,7 @@ export default function AuthPageLayout({
 }: {
   children: React.ReactNode;
 }) {
+  redirectLoggedUser();
   return (
     <html lang="en">
       <body>

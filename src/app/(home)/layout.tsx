@@ -1,5 +1,9 @@
+import { validateUserToken } from "@shared/auth-guard";
+import { AUTH_TOKEN } from "@shared/cookies-constants";
 import { LayoutHome } from "@shared/layouts";
 import { RootStyleRegistry } from "@shared/providers";
+import AuthProvider from "@shared/providers/auth-provider";
+import { cookies } from "next/headers";
 
 export const metadata = {
   title: "Next.js",
@@ -11,12 +15,15 @@ export default function HomePageLayout({
 }: {
   children: React.ReactNode;
 }) {
+  validateUserToken();
   return (
     <html lang="en">
       <body>
-        <RootStyleRegistry>
-          <LayoutHome>{children}</LayoutHome>
-        </RootStyleRegistry>
+        <AuthProvider>
+          <RootStyleRegistry>
+            <LayoutHome>{children}</LayoutHome>
+          </RootStyleRegistry>
+        </AuthProvider>
       </body>
     </html>
   );

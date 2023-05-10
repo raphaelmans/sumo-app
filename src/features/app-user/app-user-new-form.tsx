@@ -53,7 +53,7 @@ const AppUserNewForm = (props: Props) => {
 
   return (
     <Box component="form" maw={500} onSubmit={handleSubmit(onSubmit, onError)}>
-  <Stack px={48} py={24}>
+      <Stack px={48} py={24}>
         <Input.Wrapper
           label="Email"
           w="100%"
