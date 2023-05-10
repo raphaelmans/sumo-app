@@ -13,14 +13,15 @@ import {
 } from "@tanstack/react-table";
 import { Subscription } from "@types";
 import AppTable from "@shared/ui/app-table";
-import { useSubscriptions } from "./hooks";
-import NextLink from 'next/link'
+import { useDeleteSubscription, useSubscriptions } from "./hooks";
+import NextLink from "next/link";
 
 type Props = {};
 
 const columnHelper = createColumnHelper<Subscription>();
 
 const SubscriptionTable = (props: Props) => {
+  const { deleteSubscription, isMutating } = useDeleteSubscription();
   const { data } = useSubscriptions();
 
   const columns: ColumnDef<Subscription, any>[] = [
@@ -61,13 +62,30 @@ const SubscriptionTable = (props: Props) => {
       id: "actions",
       header: "ACTIONS",
       cell: (props) => {
-       const data = props.row.original
+        const data = props.row.original;
         return (
           <Group spacing={2}>
-            <ActionIcon component={NextLink} href={`/subscription/edit?id=${data.id}`} color="blue.8">
+            <ActionIcon
+              component={NextLink}
+              href={`/subscription/edit?id=${data.id}`}
+              color="blue.8"
+            >
               <IconEdit />
             </ActionIcon>
-            <ActionIcon color="red.8">
+            <ActionIcon
+              color="red.8"
+              onClick={() =>
+                deleteSubscription(
+                  {
+                    id: data.id,
+                  },
+                  {
+                    revalidate: true,
+                  }
+                )
+              }
+              loading={isMutating}
+            >
               <IconTrash />
             </ActionIcon>
           </Group>
