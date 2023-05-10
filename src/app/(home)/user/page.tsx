@@ -4,10 +4,10 @@ import { ActionIcon, Button, Flex, Stack, Text, rem } from "@mantine/core";
 import { NavBar } from "@shared/ui";
 import { LayoutHomeContent } from "@shared/layouts";
 import { IconFilter, IconPlus, IconTableExport } from "@tabler/icons-react";
-import UserTable from "@features/user-master/user-table";
+import AppUserTable from "@features/app-user/app-user-table";
 import NextLink from "next/link";
-import UserNewForm from "@features/user-master/user-new-form";
-import UserEditForm from "@features/user-master/user-edit-form";
+import AppUserNewForm from "@features/app-user/app-user-new-form";
+import AppUserEditForm from "@features/app-user/app-user-edit-form";
 
 export default function UserPage() {
   return (
@@ -56,14 +56,12 @@ export default function UserPage() {
               New User
             </Button>
           </Flex>
-          <UserEditForm mb={16} />
-
           <Text size="lg" fw="500">
             <Text component="span" fw="700" color="sumo.6">
               Subscriptions
             </Text>
           </Text>
-          <UserTable />
+          <AppUserTable />
         </Stack>
       </LayoutHomeContent>
     </Stack>

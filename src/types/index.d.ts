@@ -25,6 +25,7 @@ export type AppUser = {
   lastName: string;
   address: string;
   status: string;
+  isAdmin: boolean;
 };
 
 // AuditLog

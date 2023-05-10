@@ -3,7 +3,7 @@ import React from "react";
 import { Stack, Text } from "@mantine/core";
 import { NavBar } from "@shared/ui";
 import { LayoutHomeContent } from "@shared/layouts";
-import UserNewForm from "@features/user-master/user-new-form";
+import AppUserNewForm from "@features/app-user/app-user-new-form";
 
 export default function UserNewPage() {
   return (
@@ -17,7 +17,7 @@ export default function UserNewPage() {
               / New User
             </Text>
           </Text>
-          <UserNewForm />
+          <AppUserNewForm />
         </Stack>
       </LayoutHomeContent>
     </Stack>

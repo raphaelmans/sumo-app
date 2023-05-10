@@ -1,11 +1,19 @@
-import { Box, Button, Group, Input, Select, Stack } from "@mantine/core";
+import {
+  Box,
+  BoxProps,
+  Button,
+  Group,
+  Input,
+  Select,
+  Stack,
+} from "@mantine/core";
 import React from "react";
 
-type Props = {};
+type Props = BoxProps;
 
-const UserNewForm = (props: Props) => {
+const AppUserEditForm = (props: Props) => {
   return (
-    <Box component="form" maw={500}>
+    <Box component="form" maw={500} {...props}>
       <Stack px={48} py={24}>
         <Input.Wrapper label="Email" w="100%">
           <Input type="text" placeholder="Name" />
@@ -29,13 +37,13 @@ const UserNewForm = (props: Props) => {
         />
         <Group mt={28}>
           <Button variant="outline" bg="white">
-            ADD
+            Save
           </Button>
-          <Button>BACK</Button>
+          <Button>Delete</Button>
         </Group>
       </Stack>
     </Box>
   );
 };
 
-export default UserNewForm;
+export default AppUserEditForm;

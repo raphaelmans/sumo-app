@@ -17,7 +17,7 @@ type Props = {};
 
 const columnHelper = createColumnHelper<AppUser>();
 
-const UserTable = (props: Props) => {
+const AppUserTable = (props: Props) => {
   const columns: ColumnDef<AppUser, any>[] = [
     columnHelper.accessor("lastName", {
       cell: (props) => props.getValue(),
@@ -80,4 +80,4 @@ const UserTable = (props: Props) => {
   return <AppTable table={table} />;
 };
 
-export default UserTable;
+export default AppUserTable;
