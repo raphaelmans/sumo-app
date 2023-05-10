@@ -7,7 +7,7 @@ import { MutationFetcher } from "swr/mutation";
 export const AppUserRoutes = {
   getAppUserById: (id: string) => `/AppUserAPI/${id}`,
   getAllAppUser: `/AppUserAPI`,
-  createAppUser: `/AppUserAPI`,
+  createAppUser: `/AppUserAPI/add`,
   editAppUserById: (id: number) => `/AppUserAPI/${id}`,
 };
 

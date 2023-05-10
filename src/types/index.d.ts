@@ -1,3 +1,6 @@
+import { AppUserStatus } from "@features/app-user/types";
+import { SubscriptionStatus } from "@features/subscription/types";
+
 // SubscriptionCategory
 export type SubscriptionCategory = {
   id: number;
@@ -12,7 +15,7 @@ export type Subscription = {
   billingCycle: string;
   creationDate: Date;
   lastUpdated: Date;
-  status: string;
+  status: SubscriptionStatus;
   subscriptionCategoryId: number;
   appUserId: number;
 };
@@ -24,8 +27,8 @@ export type AppUser = {
   firstName: string;
   lastName: string;
   address: string;
-  status: string;
-  isAdmin: boolean;
+  status: AppUserStatus;
+  isAdmin?: boolean;
 };
 
 // AuditLog
