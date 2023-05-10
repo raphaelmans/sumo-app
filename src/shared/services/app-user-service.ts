@@ -5,10 +5,10 @@ import { AxiosResponse } from "axios";
 import { MutationFetcher } from "swr/mutation";
 
 export const AppUserRoutes = {
-  getAppUserById: (id: string) => `/AppUserAPI/${id}`,
-  getAllAppUser: `/AppUserAPI`,
+  getAppUserById: `/AppUserAPI/getUser`,
+  getAllAppUser: `/AppUserAPI/list`,
   createAppUser: `/AppUserAPI/add`,
-  editAppUserById: (id: number) => `/AppUserAPI/${id}`,
+  editAppUserById: `/AppUserAPI/edit`,
 };
 
 export const AppUserKey = {
@@ -21,15 +21,17 @@ export const AppUserService = {
   createAppUser: (data: AppUserCreate) =>
     baseFetcher.post<string>(AppUserRoutes.createAppUser, data),
   getAppUserById: (id: string) =>
-    baseFetcher.get<AppUser>(AppUserRoutes.getAppUserById(id)),
-  editAppUserById: (id: number, data: AppUserEdit) =>
-    baseFetcher.put(AppUserRoutes.editAppUserById(id), {
-      ...data,
+    baseFetcher.get<AppUser>(AppUserRoutes.getAppUserById, {
+      params: {
+        id: id,
+      },
     }),
+  editAppUserById: (data: AppUserEdit) =>
+    baseFetcher.put(AppUserRoutes.editAppUserById, data),
 };
 
 export type AppUserCreate = Omit<AppUser, "id">;
-export type AppUserEdit = Omit<AppUser, "id">;
+export type AppUserEdit = AppUser;
 
 export const createAppUserMutation: MutationFetcher<
   AxiosResponse<string>,
@@ -41,9 +43,7 @@ export const createAppUserMutation: MutationFetcher<
 export const editAppUserMutation: MutationFetcher<
   AxiosResponse,
   {
-    id: number;
     data: AppUserEdit;
   },
   string
-> = (_, { arg }) =>
-AppUserService.editAppUserById(arg.id, arg.data);
+> = (_, { arg }) => AppUserService.editAppUserById(arg.data);

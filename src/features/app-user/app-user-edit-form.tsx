@@ -4,42 +4,112 @@ import {
   Button,
   Group,
   Input,
-  Select,
+  NativeSelect,
   Stack,
 } from "@mantine/core";
+import { AppUser } from "@types";
 import React from "react";
+import { AppUserStatus, EditAppUserForm } from "./types";
+import { useForm } from "react-hook-form";
+import { editAppUserSchema } from "./form-utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEditUser } from "./hooks";
+import { AppUserEdit } from "@shared/services/app-user-service";
+import { appUserStatus } from "./constants";
 
-type Props = BoxProps;
+type Props = BoxProps & {
+  appUser: AppUser;
+};
 
-const AppUserEditForm = (props: Props) => {
+const AppUserEditForm = ({ appUser, ...props }: Props) => {
+  const {
+    register,
+    formState: { isValid, errors },
+    handleSubmit,
+  } = useForm<EditAppUserForm>({
+    resolver: zodResolver(editAppUserSchema),
+    mode: "onChange",
+    defaultValues: {
+      email: appUser.email,
+      firstName: appUser.firstName,
+      lastName: appUser.lastName,
+      address: appUser.address,
+      status: appUser.status as AppUserStatus,
+    },
+  });
+
+  const { editUser, isMutating } = useEditUser();
+
+  const onSubmit = (data: EditAppUserForm) => {
+    // TODO: UPdate subscriptionCategoryId dynamic
+    const appUserEdit: AppUserEdit = {
+      id: appUser.id,
+      email: data.email,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      address: data.address,
+      status: data.status,
+    };
+    editUser({
+      data: appUserEdit,
+    });
+  };
+
+  const onError = (error: any) => {
+    console.log(
+      "🚀 ~ file: subscription-new-form.tsx:43 ~ onError ~ error:",
+      error
+    );
+  };
+
   return (
-    <Box component="form" maw={500} {...props}>
+    <Box component="form" maw={500} onSubmit={handleSubmit(onSubmit, onError)}>
       <Stack px={48} py={24}>
-        <Input.Wrapper label="Email" w="100%">
-          <Input type="text" placeholder="Name" />
+        <Input.Wrapper
+          label="Email"
+          w="100%"
+          error={errors?.email?.message?.toString()}
+        >
+          <Input type="text" placeholder="" {...register("email")} />
         </Input.Wrapper>
-        <Input.Wrapper label="First Name" w="100%">
-          <Input type="text" placeholder="Name" />
+        <Input.Wrapper
+          label="First Name"
+          w="100%"
+          error={errors?.firstName?.message?.toString()}
+        >
+          <Input type="text" placeholder="" {...register("firstName")} />
         </Input.Wrapper>
-        <Input.Wrapper label="Last Name" w="100%">
-          <Input type="text" placeholder="Name" />
+        <Input.Wrapper
+          label="Last Name"
+          w="100%"
+          error={errors?.lastName?.message?.toString()}
+        >
+          <Input type="text" placeholder="" {...register("lastName")} />
         </Input.Wrapper>
-        <Input.Wrapper label="Address" w="100%">
-          <Input type="text" placeholder="Name" />
+        <Input.Wrapper
+          label="Address"
+          error={errors?.address?.message?.toString()}
+          w="100%"
+        >
+          <Input type="text" placeholder="" {...register("address")} />
         </Input.Wrapper>
-        <Select
+        <NativeSelect
           label="Status"
           placeholder="Choose"
-          data={[
-            { label: "Active", value: "active" },
-            { label: "Inactive", value: "inactive" },
-          ]}
+          data={appUserStatus.map((value) => ({ label: value, value }))}
+          error={errors?.status?.message?.toString()}
+          {...register("status")}
         />
         <Group mt={28}>
-          <Button variant="outline" bg="white">
-            Save
+          <Button
+            variant="outline"
+            bg="white"
+            type="submit"
+            loading={isMutating}
+            disabled={!isValid}
+          >
+            EDIT
           </Button>
-          <Button>Delete</Button>
         </Group>
       </Stack>
     </Box>

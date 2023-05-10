@@ -6,8 +6,6 @@ import { LayoutHomeContent } from "@shared/layouts";
 import { IconFilter, IconPlus, IconTableExport } from "@tabler/icons-react";
 import AppUserTable from "@features/app-user/app-user-table";
 import NextLink from "next/link";
-import AppUserNewForm from "@features/app-user/app-user-new-form";
-import AppUserEditForm from "@features/app-user/app-user-edit-form";
 
 export default function UserPage() {
   return (
@@ -58,7 +56,7 @@ export default function UserPage() {
           </Flex>
           <Text size="lg" fw="500">
             <Text component="span" fw="700" color="sumo.6">
-              Subscriptions
+              App Users
             </Text>
           </Text>
           <AppUserTable />

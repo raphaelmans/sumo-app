@@ -53,23 +53,40 @@ const AppUserNewForm = (props: Props) => {
 
   return (
     <Box component="form" maw={500} onSubmit={handleSubmit(onSubmit, onError)}>
-      <Stack px={48} py={24}>
-        <Input.Wrapper label="Email" w="100%">
+  <Stack px={48} py={24}>
+        <Input.Wrapper
+          label="Email"
+          w="100%"
+          error={errors?.email?.message?.toString()}
+        >
           <Input type="text" placeholder="" {...register("email")} />
         </Input.Wrapper>
-        <Input.Wrapper label="First Name" w="100%">
+        <Input.Wrapper
+          label="First Name"
+          w="100%"
+          error={errors?.firstName?.message?.toString()}
+        >
           <Input type="text" placeholder="" {...register("firstName")} />
         </Input.Wrapper>
-        <Input.Wrapper label="Last Name" w="100%">
+        <Input.Wrapper
+          label="Last Name"
+          w="100%"
+          error={errors?.lastName?.message?.toString()}
+        >
           <Input type="text" placeholder="" {...register("lastName")} />
         </Input.Wrapper>
-        <Input.Wrapper label="Address" w="100%">
+        <Input.Wrapper
+          label="Address"
+          error={errors?.address?.message?.toString()}
+          w="100%"
+        >
           <Input type="text" placeholder="" {...register("address")} />
         </Input.Wrapper>
         <NativeSelect
           label="Status"
           placeholder="Choose"
           data={appUserStatus.map((value) => ({ label: value, value }))}
+          error={errors?.status?.message?.toString()}
           {...register("status")}
         />
         <Group mt={28}>
@@ -78,6 +95,7 @@ const AppUserNewForm = (props: Props) => {
             bg="white"
             type="submit"
             loading={isMutating}
+            disabled={!isValid}
           >
             ADD
           </Button>
