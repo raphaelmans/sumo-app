@@ -1,8 +1,6 @@
 import React from "react";
 import {
-  sampleCategories,
   sampleDashboardData,
-  sampleSubscriptions,
 } from "@data";
 import { ActionIcon, Group, Text, TextProps } from "@mantine/core";
 import { IconEdit, IconTrash } from "@tabler/icons-react";

@@ -25,42 +25,6 @@ export default function DashboardPage() {
             Dashboard
           </Text>
 
-          <Flex
-            sx={{
-              flexDirection: "row",
-              gap: rem(16),
-            }}
-          >
-            <Card
-              radius="xl"
-              sx={{
-                boxShadow: "0px 5px 12px 0px #00000040",
-                flex: 1,
-              }}
-              mih={330}
-              maw="100%"
-            >
-              <Text>Subscription Summary:</Text>
-              <Card.Section>
-                <Divider />
-              </Card.Section>
-              <Card.Section></Card.Section>
-            </Card>
-            <Card
-              radius="xl"
-              sx={{
-                boxShadow: "0px 5px 12px 0px #00000040",
-              }}
-              mih={330}
-              maw={330}
-            >
-              <Text>Top Subscription</Text>
-              <Card.Section>
-                <Divider />
-              </Card.Section>
-              <Card.Section></Card.Section>
-            </Card>
-          </Flex>
           <Space h={16} />
           <DashboardTable />
         </Stack>
