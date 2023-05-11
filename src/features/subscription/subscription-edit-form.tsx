@@ -14,12 +14,14 @@ import { useSubscriptionCategories } from "@features/subscription-category/hooks
 import { Subscription } from "@types";
 import { useEditSubscription } from "./hooks/use-edit-subscripion";
 import useAuthToken from "@features/auth/hooks/use-auth-token";
+import { useRouter } from "next/navigation";
 
 type Props = {
   subscription: Subscription;
 };
 
 const SubscriptionEditForm = ({ subscription }: Props) => {
+  const router = useRouter();
   const { getId } = useAuthToken();
   const {
     register,
@@ -41,7 +43,7 @@ const SubscriptionEditForm = ({ subscription }: Props) => {
   const { editSubscription, isMutating } = useEditSubscription();
   const { data: subscriptionCategories } = useSubscriptionCategories();
 
-  const onSubmit = (data: EditSubscriptionForm) => {
+  const onSubmit = async (data: EditSubscriptionForm) => {
     const subEdit: SubscriptionEdit = {
       subscriptionName: data.subscriptionName,
       subscriptionCategoryId: Number(data.subscriptionCategoryId),
@@ -50,10 +52,17 @@ const SubscriptionEditForm = ({ subscription }: Props) => {
       status: data.status,
       userId: getId()!,
     };
-    editSubscription({
-      id: subscription.id,
-      subscription: subEdit,
-    });
+
+    try {
+      const res = await editSubscription({
+        id: subscription.id,
+        subscription: subEdit,
+      });
+
+      if (res?.status === 204) {
+        router.push("/user");
+      }
+    } catch (e) {}
   };
 
   const onError = (error: any) => {

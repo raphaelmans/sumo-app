@@ -15,12 +15,14 @@ import { editAppUserSchema } from "./form-utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEditUser } from "./hooks";
 import { appUserStatus } from "./constants";
+import { useRouter } from "next/navigation";
 
 type Props = BoxProps & {
   appUser: AppUser;
 };
 
 const AppUserEditForm = ({ appUser, ...props }: Props) => {
+  const router = useRouter();
   const {
     register,
     formState: { isValid, errors },
@@ -40,7 +42,7 @@ const AppUserEditForm = ({ appUser, ...props }: Props) => {
 
   const { editUser, isMutating } = useEditUser();
 
-  const onSubmit = (data: EditAppUserForm) => {
+  const onSubmit = async (data: EditAppUserForm) => {
     // TODO: UPdate subscriptionCategoryId dynamic
     const appUserEdit: AppUser = {
       id: appUser.id,
@@ -51,9 +53,14 @@ const AppUserEditForm = ({ appUser, ...props }: Props) => {
       status: data.status,
       userName: data.userName,
     };
-    editUser({
-      data: appUserEdit,
-    });
+    try {
+      const res = await editUser({
+        data: appUserEdit,
+      });
+      if (res?.status === 200) {
+        router.push("/user");
+      }
+    } catch (e) {}
   };
 
   const onError = (error: any) => {
