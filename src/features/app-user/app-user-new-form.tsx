@@ -15,11 +15,13 @@ import { appUserStatus } from "./constants";
 import { RegisterFormType } from "@features/auth/types";
 import { registerSchema } from "@features/auth/form-utils";
 import { RegisterAuthUser } from "@types";
+import { notifications } from "@mantine/notifications";
 
 type Props = {};
 
 const AppUserNewForm = (props: Props) => {
   const {
+    reset,
     register,
     formState: { isValid, errors },
     handleSubmit,
@@ -30,7 +32,7 @@ const AppUserNewForm = (props: Props) => {
 
   const { createUser, isMutating } = useCreateAppUser();
 
-  const onSubmit = (data: RegisterFormType) => {
+  const onSubmit = async (data: RegisterFormType) => {
     // TODO: UPdate subscriptionCategoryId dynamic
     const user: RegisterAuthUser = {
       emailAddress: data.emailAddress,
@@ -43,9 +45,22 @@ const AppUserNewForm = (props: Props) => {
       confirmPassword: data.confirmPassword,
       role: "User",
     };
-    createUser({
-      data: user,
-    });
+
+    try {
+      const res = await createUser({
+        data: user,
+      });
+      if (res?.status === 200) {
+        notifications.show({
+          title: "Success",
+          message: "User created successfully",
+          color: "green",
+        });
+        reset();
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const onError = (error: any) => {

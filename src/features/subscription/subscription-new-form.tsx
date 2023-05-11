@@ -17,11 +17,13 @@ import { billingCycle, subscriptionStatus } from "./constants";
 import { SubscriptionCreate } from "@shared/services/subscription-service";
 import { useSubscriptionCategories } from "@features/subscription-category/hooks";
 import useAuthToken from "@features/auth/hooks/use-auth-token";
+import { notifications } from "@mantine/notifications";
 
 const SubscriptionNewForm = () => {
   const {
     register,
     formState: { isValid, errors },
+    reset,
     handleSubmit,
   } = useForm<CreateSubscriptionForm>({
     resolver: zodResolver(createSubscriptionSchema),
@@ -32,7 +34,7 @@ const SubscriptionNewForm = () => {
   const { createSubscription, isMutating } = useCreateSubscription();
   const { getId } = useAuthToken();
 
-  const onSubmit = (data: CreateSubscriptionForm) => {
+  const onSubmit = async (data: CreateSubscriptionForm) => {
     // TODO: UPdate subscriptionCategoryId dynamic
     const subscriptionCreate: SubscriptionCreate = {
       subscriptionName: data.subscriptionName,
@@ -42,9 +44,23 @@ const SubscriptionNewForm = () => {
       status: data.status,
       userId: getId()!,
     };
-    createSubscription({
-      subscription: subscriptionCreate,
-    });
+
+    try {
+      const res = await createSubscription({
+        subscription: subscriptionCreate,
+      });
+
+      if (res?.status === 201) {
+        notifications.show({
+          title: "Success",
+          message: "Subscription created successfully",
+          color: "green",
+        });
+        reset();
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const onError = (error: any) => {

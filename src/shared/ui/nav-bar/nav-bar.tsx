@@ -55,6 +55,7 @@ const NavBar = (props: Props) => {
       px={48}
       w="100%"
       h={67}
+      zIndex={1}
     >
       <Anchor
         w="min-content"

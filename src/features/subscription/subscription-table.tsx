@@ -13,16 +13,17 @@ import {
 } from "@tanstack/react-table";
 import { Subscription } from "@types";
 import AppTable from "@shared/ui/app-table";
-import { useDeleteSubscription, useSubscriptions } from "./hooks";
+import { useDeleteSubscription } from "./hooks";
 import NextLink from "next/link";
 
-type Props = {};
+type Props = {
+  subscriptions: Subscription[];
+};
 
 const columnHelper = createColumnHelper<Subscription>();
 
-const SubscriptionTable = (props: Props) => {
+const SubscriptionTable = ({subscriptions}: Props) => {
   const { deleteSubscription, isMutating } = useDeleteSubscription();
-  const { data } = useSubscriptions();
 
   const columns: ColumnDef<Subscription, any>[] = [
     columnHelper.accessor("subscriptionName", {
@@ -95,7 +96,7 @@ const SubscriptionTable = (props: Props) => {
   ];
 
   const table = useReactTable({
-    data: data?.data ?? [],
+    data: subscriptions ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),

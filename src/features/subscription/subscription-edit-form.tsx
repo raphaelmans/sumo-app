@@ -60,7 +60,7 @@ const SubscriptionEditForm = ({ subscription }: Props) => {
       });
 
       if (res?.status === 204) {
-        router.push("/user");
+        router.push("/subscription");
       }
     } catch (e) {}
   };
