@@ -9,6 +9,7 @@ export const AppUserRoutes = {
   getAllAppUser: `/UserAPI/list`,
   editAppUserById: `/UserAPI/edit`,
   deleteAppUserById: `/UserAPI/delete`,
+  remindUsers: `/UserAPI/remind`,
 };
 
 export const AppUserKey = {
@@ -31,6 +32,9 @@ export const AppUserService = {
         id,
       },
     }),
+
+  remindUsers: (emails: string[]) =>
+    baseFetcher.put(AppUserRoutes.remindUsers, { emails }),
 };
 
 export type AppUserCreate = Omit<AppUser, "id">;
@@ -50,4 +54,14 @@ export const deleteAppUserMutation: MutationFetcher<
   string
 > = async (_, { arg }) => {
   return AppUserService.deleteAppUserById(arg.id);
+};
+
+export const remindAppUsersMutation: MutationFetcher<
+  AxiosResponse,
+  {
+    emails: string[];
+  },
+  string
+> = async (_, { arg }) => {
+  return AppUserService.remindUsers(arg.emails);
 };
