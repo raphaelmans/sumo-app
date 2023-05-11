@@ -1,3 +1,4 @@
+import useAuthToken from "@features/auth/hooks/use-auth-token";
 import {
   SubscriptionAPIRoutes,
   deleteSubscriptionMutation,
@@ -5,14 +6,21 @@ import {
 import useSWRMutation from "swr/mutation";
 
 export const useDeleteSubscription = () => {
+  const { token } = useAuthToken();
+
   const {
     trigger: deleteSubscription,
     data,
     isMutating,
     error,
   } = useSWRMutation(
-    SubscriptionAPIRoutes.getAllSubscriptions,
-    deleteSubscriptionMutation
+    [SubscriptionAPIRoutes.getAllSubscriptions, token ?? ""],
+
+    deleteSubscriptionMutation,
+    {
+      revalidate: true,
+      populateCache: false,
+    }
   );
 
   return {

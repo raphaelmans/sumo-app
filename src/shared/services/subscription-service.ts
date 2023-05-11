@@ -1,6 +1,7 @@
 import baseFetcher from "@shared/api";
+import { generateConfigHeaderToken } from "@shared/utils";
 import { Subscription } from "@types";
-import { AxiosResponse } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { cache } from "swr/_internal";
 
 import { MutationFetcher } from "swr/mutation";
@@ -20,23 +21,40 @@ export const SubscriptionKey = {
 };
 
 export const SubscriptionService = {
-  getAllSubscriptions: () =>
-    baseFetcher.get<Subscription[]>(SubscriptionAPIRoutes.getAllSubscriptions),
-  createSubscription: (sub: SubscriptionCreate) =>
-    baseFetcher.post<string>(SubscriptionAPIRoutes.createSubscription, sub),
+  getAllSubscriptions: (config?: AxiosRequestConfig) =>
+    baseFetcher.get<Subscription[]>(
+      SubscriptionAPIRoutes.getAllSubscriptions,
+      config
+    ),
+  createSubscription: (sub: SubscriptionCreate, config?: AxiosRequestConfig) =>
+    baseFetcher.post<string>(
+      SubscriptionAPIRoutes.createSubscription,
+      sub,
+      config
+    ),
 
-  getSubscriptionById: (id: string) =>
+  getSubscriptionById: (id: string, config?: AxiosRequestConfig) =>
     baseFetcher.get<Subscription>(
-      SubscriptionAPIRoutes.getSubscriptionById(id)
+      SubscriptionAPIRoutes.getSubscriptionById(id),
+      config
     ),
-  deleteSubscriptionById: (id: number) =>
+  deleteSubscriptionById: (id: number, config?: AxiosRequestConfig) =>
     baseFetcher.delete<Subscription>(
-      SubscriptionAPIRoutes.deleteSubscriptionById(id)
+      SubscriptionAPIRoutes.deleteSubscriptionById(id),
+      config
     ),
-  editSubscriptionById: (id: number, data: SubscriptionEdit) =>
-    baseFetcher.put(SubscriptionAPIRoutes.editSubscriptionById(id), {
-      ...data,
-    }),
+  editSubscriptionById: (
+    id: number,
+    data: SubscriptionEdit,
+    config?: AxiosRequestConfig
+  ) =>
+    baseFetcher.put(
+      SubscriptionAPIRoutes.editSubscriptionById(id),
+      {
+        ...data,
+      },
+      config
+    ),
 };
 
 export type SubscriptionCreate = Omit<
@@ -53,24 +71,35 @@ export const createSubscriptionMutation: MutationFetcher<
   {
     subscription: SubscriptionCreate;
   },
-  string
-> = (_, { arg }) => SubscriptionService.createSubscription(arg.subscription);
+  [string, string]
+> = ([_, token], { arg }) =>
+  SubscriptionService.createSubscription(
+    arg.subscription,
+    generateConfigHeaderToken(token)
+  );
 export const editSubscriptionMutation: MutationFetcher<
   AxiosResponse,
   {
     id: number;
     subscription: SubscriptionEdit;
   },
-  string
-> = (_, { arg }) =>
-  SubscriptionService.editSubscriptionById(arg.id, arg.subscription);
+  [string, string]
+> = ([_, token], { arg }) =>
+  SubscriptionService.editSubscriptionById(
+    arg.id,
+    arg.subscription,
+    generateConfigHeaderToken(token)
+  );
 
 export const deleteSubscriptionMutation: MutationFetcher<
   AxiosResponse,
   {
     id: number;
   },
-  string
-> = async (_, { arg }) => {
-  return SubscriptionService.deleteSubscriptionById(arg.id);
+  [string, string]
+> = async ([_, token], { arg }) => {
+  return SubscriptionService.deleteSubscriptionById(
+    arg.id,
+    generateConfigHeaderToken(token)
+  );
 };

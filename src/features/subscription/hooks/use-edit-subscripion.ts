@@ -1,3 +1,4 @@
+import useAuthToken from "@features/auth/hooks/use-auth-token";
 import {
   SubscriptionKey,
   editSubscriptionMutation,
@@ -5,13 +6,15 @@ import {
 import useSWRMutation from "swr/mutation";
 
 export const useEditSubscription = () => {
+  const { token } = useAuthToken();
+
   const {
     trigger: editSubscription,
     data,
     isMutating,
     error,
   } = useSWRMutation(
-    SubscriptionKey.editSubscription,
+    [SubscriptionKey.editSubscription, token ?? ""],
     editSubscriptionMutation
   );
 
