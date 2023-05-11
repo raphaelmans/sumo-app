@@ -7,7 +7,6 @@ import {
   Title,
   Text,
   rem,
-  NavLink,
   Flex,
 } from "@mantine/core";
 import NextLink from "next/link";
@@ -20,6 +19,8 @@ import { useLogin } from "./hooks";
 import useAuthToken from "./hooks/use-auth-token";
 import { useRouter } from "next/navigation";
 import { notifications } from "@mantine/notifications";
+import { logoSVG } from "@features/subscription/assets";
+import NextImage from "next/image";
 
 type Props = {};
 
@@ -90,9 +91,13 @@ const LoginForm = (props: Props) => {
         spacing={8}
         px={48}
       >
-        <Title size={32} order={3}>
-          SuMo
-        </Title>
+        <NextImage
+          src={logoSVG}
+          alt="logo"
+          loading="eager"
+          priority={true}
+          height={45}
+        />
         <Input.Wrapper
           label="Username"
           w="100%"

@@ -4,6 +4,8 @@ import { Anchor, Avatar, Box, List, Navbar } from "@mantine/core";
 import { usePathname } from "next/navigation";
 import NextLink from "next/link";
 import ProfileMenu from "./profile-menu";
+import NextImage from "next/image";
+import { logoSVG } from "@features/subscription/assets";
 
 type Props = {};
 
@@ -72,7 +74,13 @@ const NavBar = (props: Props) => {
           },
         }}
       >
-        SuMo
+        <NextImage
+          src={logoSVG}
+          alt="logo"
+          loading="eager"
+          priority={true}
+          height={45}
+        />
       </Anchor>
       <Navbar.Section
         display="flex"

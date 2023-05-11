@@ -19,9 +19,9 @@ export default function UserPage() {
       <LayoutHomeContent>
         <Stack miw="100%" spacing={0}>
           <Text size="lg" fw="500">
-            User Master{" "}
+           
             <Text component="span" fw="700" color="sumo.6">
-              {/* TODO: Make dynamic */}/ John Doe
+            User Master{" "}
             </Text>
           </Text>
           <Flex w="100%" justify="flex-end" gap={8} h={50}>

@@ -20,6 +20,8 @@ import { registerSchema } from "./form-utils";
 import { useRegister } from "./hooks";
 import { appUserStatus } from "@features/app-user/constants";
 import { RegisterAuthUser } from "@types";
+import NextImage from "next/image";
+import { logoSVG } from "@features/subscription/assets";
 
 type Props = {};
 
@@ -93,9 +95,13 @@ const RegisterForm = (props: Props) => {
         px={48}
         py={64}
       >
-        <Title size={32} order={3}>
-          SuMo
-        </Title>
+        <NextImage
+          src={logoSVG}
+          alt="logo"
+          loading="eager"
+          priority={true}
+          height={45}
+        />
         <Input.Wrapper
           label="Username"
           w="100%"
