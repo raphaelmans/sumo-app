@@ -1,6 +1,7 @@
 
-import { AppUserKey, createAppUserMutation } from "@shared/services/app-user-service";
+import { AppUserKey } from "@shared/services/app-user-service";
 import useSWRMutation from "swr/mutation";
+import { AuthRoutes, registerUserMutation } from "@shared/services/auth-service";
 
 export const useCreateAppUser = () => {
   const {
@@ -9,8 +10,8 @@ export const useCreateAppUser = () => {
     isMutating,
     error,
   } = useSWRMutation(
-    AppUserKey.createAppUser,
-    createAppUserMutation
+    AuthRoutes.registerUser,
+    registerUserMutation
   );
 
   return {

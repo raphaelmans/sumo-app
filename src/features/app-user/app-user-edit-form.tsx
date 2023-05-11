@@ -30,7 +30,7 @@ const AppUserEditForm = ({ appUser, ...props }: Props) => {
     resolver: zodResolver(editAppUserSchema),
     mode: "onChange",
     defaultValues: {
-      email: appUser.email,
+      email: appUser.emailAddress,
       firstName: appUser.firstName,
       lastName: appUser.lastName,
       address: appUser.address,
@@ -44,11 +44,12 @@ const AppUserEditForm = ({ appUser, ...props }: Props) => {
     // TODO: UPdate subscriptionCategoryId dynamic
     const appUserEdit: AppUserEdit = {
       id: appUser.id,
-      email: data.email,
+      emailAddress: data.email,
       firstName: data.firstName,
       lastName: data.lastName,
       address: data.address,
       status: data.status,
+      userName: data.userName
     };
     editUser({
       data: appUserEdit,

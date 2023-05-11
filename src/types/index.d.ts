@@ -35,14 +35,21 @@ export type ArchivedSubscription = {
 
 export type RegisterAuthUser = {
   password: string;
-  confirm_pass: string;
-  email: string;
+  confirmPassword: string;
+  emailAddress: string;
+  userName: string;
   role: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  status: string;
 };
+
 // User
 export type AppUser = {
   id: number;
-  email: string;
+  userName: string;
+  emailAddress: string;
   firstName: string;
   lastName: string;
   address: string;

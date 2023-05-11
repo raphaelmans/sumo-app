@@ -32,7 +32,7 @@ const AppUserTable = (props: Props) => {
       cell: (props) => props.getValue(),
       header: () => "FIRST NAME",
     }),
-    columnHelper.accessor("email", {
+    columnHelper.accessor("emailAddress", {
       cell: (props) => props.getValue(),
       header: () => "EMAIL",
     }),

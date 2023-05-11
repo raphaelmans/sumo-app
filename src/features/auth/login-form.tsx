@@ -40,7 +40,7 @@ const LoginForm = (props: Props) => {
   const onSubmit = async (data: LoginFormType) => {
     try {
       const res = await loginUser({
-        username: data.username,
+        username: data.userName,
         password: data.password,
       });
 
@@ -88,14 +88,14 @@ const LoginForm = (props: Props) => {
           SuMo
         </Title>
         <Input.Wrapper
-          label="Email"
+          label="Username"
           w="100%"
-          error={errors?.username?.message?.toString()}
+          error={errors?.userName?.message?.toString()}
         >
           <Input
             type="text"
-            placeholder="Enter your email"
-            {...register("username")}
+            placeholder="Enter your username"
+            {...register("userName")}
           />
         </Input.Wrapper>
         <Input.Wrapper

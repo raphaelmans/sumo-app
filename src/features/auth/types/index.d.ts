@@ -1,5 +1,5 @@
 import z from 'zod'
-import { loginSchema } from "../form-utils";
+import { loginSchema, registerSchema } from "../form-utils";
 
 export type LoginResponse = {
   access_token: string;
@@ -10,3 +10,5 @@ export type LoginResponse = {
 
 
 export type LoginFormType = z.infer<typeof loginSchema>;
+export type RegisterFormType = z.infer<typeof registerSchema>;
+

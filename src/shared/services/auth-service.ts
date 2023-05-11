@@ -18,15 +18,6 @@ export const AuthService = {
   },
 };
 
-// export const createSubscriptionCategoryMutation: MutationFetcher<
-//   AxiosResponse<string>,
-//   {
-//     data: SubscriptionCategoryCreate;
-//   },
-//   string
-// > = (_, { arg }) =>
-//   SubscriptionCategoryService.createSubscriptionCategory(arg.data);
-
 export const loginUserMutation: MutationFetcher<
   AxiosResponse<LoginResponse>,
   {
@@ -35,3 +26,11 @@ export const loginUserMutation: MutationFetcher<
   },
   string
 > = (_, { arg }) => AuthService.loginUser(arg.username, arg.password);
+
+export const registerUserMutation: MutationFetcher<
+  AxiosResponse<string>,
+  {
+    data: RegisterAuthUser;
+  },
+  string
+> = (_, { arg }) => AuthService.registerUser(arg.data);
