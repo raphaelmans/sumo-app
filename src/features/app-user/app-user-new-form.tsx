@@ -16,6 +16,7 @@ import { RegisterFormType } from "@features/auth/types";
 import { registerSchema } from "@features/auth/form-utils";
 import { RegisterAuthUser } from "@types";
 import { notifications } from "@mantine/notifications";
+import { isAxiosError } from "axios";
 
 type Props = {};
 
@@ -60,6 +61,13 @@ const AppUserNewForm = (props: Props) => {
       }
     } catch (e) {
       console.error(e);
+      if (isAxiosError(e)) {
+        notifications.show({
+          title: "Failed",
+          message: e.response?.data?.modelStateErrors?.errors[0]?.errorMessage,
+          color: "red",
+        });
+      }
     }
   };
 
