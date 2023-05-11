@@ -4,6 +4,7 @@ import { useEmotionCache, MantineProvider } from "@mantine/core";
 import { theme } from "@theme";
 import { useServerInsertedHTML } from "next/navigation";
 import { SWRConfig } from "swr";
+import { Notifications } from "@mantine/notifications";
 
 export default function RootStyleRegistry({
   children,
@@ -25,6 +26,7 @@ export default function RootStyleRegistry({
   return (
     <CacheProvider value={cache}>
       <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
+        <Notifications position="top-center" />
         <SWRConfig>{children}</SWRConfig>
       </MantineProvider>
     </CacheProvider>

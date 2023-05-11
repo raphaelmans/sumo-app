@@ -19,6 +19,7 @@ import { loginSchema } from "./form-utils";
 import { useLogin } from "./hooks";
 import useAuthToken from "./hooks/use-auth-token";
 import { useRouter } from "next/navigation";
+import { notifications } from "@mantine/notifications";
 
 type Props = {};
 
@@ -49,6 +50,11 @@ const LoginForm = (props: Props) => {
         router.push("/dashboard");
       }
     } catch (e) {
+      notifications.show({
+        title: "Failed to login",
+        message: "Please check your username and password",
+        color: "red",
+      });
       console.error(e);
     }
   };

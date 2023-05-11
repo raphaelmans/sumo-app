@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { sysRecipientsSchema } from "./form-utils";
 import { useRemindUsers } from "@features/app-user/hooks/use-remind-users";
+import { notifications } from "@mantine/notifications";
 
 type Props = {};
 
@@ -23,6 +24,12 @@ const SysConfigForm = (props: Props) => {
     try {
       await remindUser({
         emails: data.emails.split(","),
+      });
+
+      notifications.show({
+        title: "Success",
+        message: "Emails will be sent to the recipients",
+        color: "green",
       });
     } catch (e) {
       console.error(e);
