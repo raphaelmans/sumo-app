@@ -1,6 +1,8 @@
 import baseFetcher from "@shared/api";
+import { generateConfigHeaderToken } from "@shared/utils";
 import { AppUser } from "@types";
-import { AxiosResponse } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
+import { config } from "process";
 
 import { MutationFetcher } from "swr/mutation";
 
@@ -17,24 +19,27 @@ export const AppUserKey = {
 };
 
 export const AppUserService = {
-  getAllAppUser: () => baseFetcher.get<AppUser[]>(AppUserRoutes.getAllAppUser),
-  getAppUserById: (id: string) =>
+  getAllAppUser: (config?: AxiosRequestConfig) =>
+    baseFetcher.get<AppUser[]>(AppUserRoutes.getAllAppUser, config),
+  getAppUserById: (id: string, config?: AxiosRequestConfig) =>
     baseFetcher.get<AppUser>(AppUserRoutes.getAppUserById, {
       params: {
         id: id,
       },
+      ...config,
     }),
-  editAppUserById: (data: AppUser) =>
-    baseFetcher.put(AppUserRoutes.editAppUserById, data),
-  deleteAppUserById: (id: string) =>
+  editAppUserById: (data: AppUser, config?: AxiosRequestConfig) =>
+    baseFetcher.put(AppUserRoutes.editAppUserById, data, config),
+  deleteAppUserById: (id: string, config?: AxiosRequestConfig) =>
     baseFetcher.delete(AppUserRoutes.deleteAppUserById, {
       params: {
         id,
       },
+      ...config,
     }),
 
-  remindUsers: (emails: string[]) =>
-    baseFetcher.put(AppUserRoutes.remindUsers, { emails }),
+  remindUsers: (emails: string[], config?: AxiosRequestConfig) =>
+    baseFetcher.put(AppUserRoutes.remindUsers, { emails }, config),
 };
 
 export type AppUserCreate = Omit<AppUser, "id">;
@@ -43,17 +48,21 @@ export const editAppUserMutation: MutationFetcher<
   {
     data: AppUser;
   },
-  string
-> = (_, { arg }) => AppUserService.editAppUserById(arg.data);
+  [string, string?]
+> = ([_, token], { arg }) =>
+  AppUserService.editAppUserById(arg.data, generateConfigHeaderToken(token));
 
 export const deleteAppUserMutation: MutationFetcher<
   AxiosResponse,
   {
     id: string;
   },
-  string
-> = async (_, { arg }) => {
-  return AppUserService.deleteAppUserById(arg.id);
+  [string, string?]
+> = async ([_, token], { arg }) => {
+  return AppUserService.deleteAppUserById(
+    arg.id,
+    generateConfigHeaderToken(token)
+  );
 };
 
 export const remindAppUsersMutation: MutationFetcher<
@@ -61,7 +70,10 @@ export const remindAppUsersMutation: MutationFetcher<
   {
     emails: string[];
   },
-  string
-> = async (_, { arg }) => {
-  return AppUserService.remindUsers(arg.emails);
+  [string, string?]
+> = async ([_, token], { arg }) => {
+  return AppUserService.remindUsers(
+    arg.emails,
+    generateConfigHeaderToken(token)
+  );
 };

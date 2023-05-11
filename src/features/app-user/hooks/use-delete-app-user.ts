@@ -1,3 +1,4 @@
+import useAuthToken from "@features/auth/hooks/use-auth-token";
 import {
   AppUserRoutes,
   deleteAppUserMutation,
@@ -5,12 +6,17 @@ import {
 import useSWRMutation from "swr/mutation";
 
 export const useDeleteAppUser = () => {
+  const { token } = useAuthToken();
+
   const {
     trigger: deleteAppUser,
     data,
     isMutating,
     error,
-  } = useSWRMutation(AppUserRoutes.getAllAppUser, deleteAppUserMutation);
+  } = useSWRMutation(
+    [AppUserRoutes.getAllAppUser, token],
+    deleteAppUserMutation
+  );
 
   return {
     data,

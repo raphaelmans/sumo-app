@@ -1,16 +1,20 @@
-import { AppUserKey, editAppUserMutation } from "@shared/services/app-user-service";
+import useAuthToken from "@features/auth/hooks/use-auth-token";
+import {
+  AppUserKey,
+  AppUserRoutes,
+  editAppUserMutation,
+} from "@shared/services/app-user-service";
 import useSWRMutation from "swr/mutation";
 
 export const useEditUser = () => {
+  const { token } = useAuthToken();
+
   const {
     trigger: editUser,
     data,
     isMutating,
     error,
-  } = useSWRMutation(
-    AppUserKey.editAppUser,
-    editAppUserMutation
-  );
+  } = useSWRMutation([AppUserRoutes.getAllAppUser, token], editAppUserMutation);
 
   return {
     data,
