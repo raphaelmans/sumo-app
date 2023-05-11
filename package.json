@@ -28,11 +28,15 @@
     "jwt-decode": "^3.1.2",
     "next": "13.3.1-canary.19",
     "react": "18.2.0",
+    "react-csv": "^2.2.2",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
     "swr": "^2.1.5",
     "typescript": "5.0.4",
     "zod": "^3.21.4",
     "zustand": "^4.3.8"
+  },
+  "devDependencies": {
+    "@types/react-csv": "^1.1.3"
   }
 }

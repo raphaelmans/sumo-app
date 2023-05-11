@@ -15,12 +15,13 @@ import { useAppUsers } from "./hooks";
 import NextLink from "next/link";
 import { useDeleteAppUser } from "./hooks/use-delete-app-user";
 
-type Props = {};
+type Props = {
+  data: AppUser[];
+};
 
 const columnHelper = createColumnHelper<AppUser>();
 
-const AppUserTable = (props: Props) => {
-  const { data } = useAppUsers();
+const AppUserTable = ({ data }: Props) => {
   const { deleteAppUser, isMutating } = useDeleteAppUser();
 
   const columns: ColumnDef<AppUser, any>[] = [
@@ -61,7 +62,7 @@ const AppUserTable = (props: Props) => {
           <Group spacing={2}>
             <ActionIcon
               component={NextLink}
-              href={`/user/edit?id=${data.id}`}
+              href={`/user/edit/${data.id}`}
               color="blue.8"
             >
               <IconEdit />
@@ -89,7 +90,7 @@ const AppUserTable = (props: Props) => {
   ];
 
   const table = useReactTable({
-    data: data?.data ?? [],
+    data: data ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),

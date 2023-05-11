@@ -67,7 +67,7 @@ const SubscriptionTable = (props: Props) => {
           <Group spacing={2}>
             <ActionIcon
               component={NextLink}
-              href={`/subscription/edit?id=${data.id}`}
+              href={`/subscription/edit/${data.id}`}
               color="blue.8"
             >
               <IconEdit />

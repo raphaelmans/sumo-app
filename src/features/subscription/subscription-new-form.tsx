@@ -9,15 +9,14 @@ import {
 } from "@mantine/core";
 import React from "react";
 import { useCreateSubscription } from "./hooks";
-import {
-  CreateSubscriptionForm,
-} from "./types";
+import { CreateSubscriptionForm } from "./types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createSubscriptionSchema } from "./form-utils";
 import { useForm } from "react-hook-form";
 import { billingCycle, subscriptionStatus } from "./constants";
 import { SubscriptionCreate } from "@shared/services/subscription-service";
 import { useSubscriptionCategories } from "@features/subscription-category/hooks";
+import useAuthToken from "@features/auth/hooks/use-auth-token";
 
 const SubscriptionNewForm = () => {
   const {
@@ -31,6 +30,7 @@ const SubscriptionNewForm = () => {
 
   const { data: subscriptionCategories } = useSubscriptionCategories();
   const { createSubscription, isMutating } = useCreateSubscription();
+  const { getId } = useAuthToken();
 
   const onSubmit = (data: CreateSubscriptionForm) => {
     // TODO: UPdate subscriptionCategoryId dynamic
@@ -40,7 +40,7 @@ const SubscriptionNewForm = () => {
       subscriptionCost: Number(data.subscriptionCost),
       billingCycle: data.billingCycle,
       status: data.status,
-      appUserId: 1,
+      userId: getId()!,
     };
     createSubscription({
       subscription: subscriptionCreate,

@@ -3,22 +3,22 @@ import React from "react";
 import { Stack, Text } from "@mantine/core";
 import { NavBar } from "@shared/ui";
 import { LayoutHomeContent } from "@shared/layouts";
-import { SubscriptionEditForm } from "@features/subscription";
 import { redirect } from "next/navigation";
-import { useGetSubscription } from "@features/subscription/hooks/use-get-subscription";
+import { useGetAppUser } from "@features/app-user/hooks";
 import { FormLoading } from "@shared/components";
+import AppUserEditForm from "@features/app-user/app-user-edit-form";
 
-export default function SubscriptionEditPage({
-  searchParams: { id },
+export default function UserEditPage({
+  params: { id },
 }: {
-  searchParams: {
+  params: {
     id: string;
   };
 }) {
   if (!id) {
-    redirect("/subscription");
+    redirect("/user");
   }
-  const { data, isLoading } = useGetSubscription(id);
+  const { data, isLoading } = useGetAppUser(id);
 
   return (
     <Stack spacing="0">
@@ -26,16 +26,14 @@ export default function SubscriptionEditPage({
       <LayoutHomeContent>
         <Stack miw="100%" spacing={0}>
           <Text size="lg" fw="500">
-            Subscription Master{" "}
+            User Master{" "}
             <Text component="span" fw="700" color="sumo.6">
-              / Edit Subscription
+              / New User
             </Text>
           </Text>
           {(isLoading || !data) && <FormLoading px={48} py={28} />}
 
-          {!isLoading && data && (
-            <SubscriptionEditForm subscription={data.data} />
-          )}
+          {!isLoading && data && <AppUserEditForm appUser={data.data} />}
         </Stack>
       </LayoutHomeContent>
     </Stack>

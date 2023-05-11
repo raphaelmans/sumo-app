@@ -16,5 +16,5 @@ export type SubscriptionUpdated = {
     lastUpdated: boolean;
     status: boolean;
     subscriptionCategoryId: boolean;
-    appUserId: boolean;
+    userId: boolean;
   };

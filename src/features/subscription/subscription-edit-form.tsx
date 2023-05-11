@@ -13,12 +13,14 @@ import { SubscriptionEdit } from "@shared/services/subscription-service";
 import { useSubscriptionCategories } from "@features/subscription-category/hooks";
 import { Subscription } from "@types";
 import { useEditSubscription } from "./hooks/use-edit-subscripion";
+import useAuthToken from "@features/auth/hooks/use-auth-token";
 
 type Props = {
   subscription: Subscription;
 };
 
 const SubscriptionEditForm = ({ subscription }: Props) => {
+  const { getId } = useAuthToken();
   const {
     register,
     formState: { isValid, errors },
@@ -46,7 +48,7 @@ const SubscriptionEditForm = ({ subscription }: Props) => {
       subscriptionCost: Number(data.subscriptionCost),
       billingCycle: data.billingCycle,
       status: data.status,
-      appUserId: 1,
+      userId: getId()!,
     };
     editSubscription({
       id: subscription.id,
