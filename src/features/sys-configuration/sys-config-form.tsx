@@ -32,7 +32,7 @@ const SysConfigForm = (props: Props) => {
   const onSubmit = async (data: SysRecipientsForm) => {
     try {
       await remindUser({
-        emails: data.emails.split(","),
+        emails: data.emails.replace(/\s/g, "").split(","),
       });
 
       notifications.show({

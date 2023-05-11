@@ -1,5 +1,4 @@
 import React from "react";
-import { sampleCategories } from "@data";
 import { ActionIcon, Group, Text, TextProps } from "@mantine/core";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
 import { format } from "date-fns";
@@ -15,6 +14,7 @@ import { Subscription } from "@types";
 import AppTable from "@shared/ui/app-table";
 import { useDeleteSubscription } from "./hooks";
 import NextLink from "next/link";
+import { useSubscriptionCategories } from "@features/subscription-category/hooks";
 
 type Props = {
   subscriptions: Subscription[];
@@ -22,7 +22,10 @@ type Props = {
 
 const columnHelper = createColumnHelper<Subscription>();
 
-const SubscriptionTable = ({subscriptions}: Props) => {
+const SubscriptionTable = ({ subscriptions }: Props) => {
+  const { data, isLoading } = useSubscriptionCategories();
+
+  const categories = data?.data;
   const { deleteSubscription, isMutating } = useDeleteSubscription();
 
   const columns: ColumnDef<Subscription, any>[] = [
@@ -32,7 +35,8 @@ const SubscriptionTable = ({subscriptions}: Props) => {
     }),
     columnHelper.accessor("subscriptionCategoryId", {
       cell: (props) =>
-        sampleCategories.find((c) => c.id === props.getValue())?.categoryName,
+        categories?.find((c) => c.id === props.getValue())?.categoryName ??
+        "...fetching",
       header: () => "CATEGORY",
     }),
     columnHelper.accessor("subscriptionCost", {
