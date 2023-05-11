@@ -3,6 +3,7 @@ import {
   AppUserRoutes,
   remindAppUsersMutation,
 } from "@shared/services/app-user-service";
+import { SysConfigRoutes } from "@shared/services/sys-config-service";
 import useSWRMutation from "swr/mutation";
 
 export const useRemindUsers = () => {
@@ -14,7 +15,7 @@ export const useRemindUsers = () => {
     isMutating,
     error,
   } = useSWRMutation(
-    [AppUserRoutes.remindUsers, token],
+    [SysConfigRoutes.getReminders, token],
     remindAppUsersMutation
   );
 
