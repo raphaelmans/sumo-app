@@ -3,6 +3,7 @@ import React from "react";
 import { Anchor, Avatar, Box, List, Navbar } from "@mantine/core";
 import { usePathname } from "next/navigation";
 import NextLink from "next/link";
+import ProfileMenu from "./profile-menu";
 
 type Props = {};
 
@@ -107,7 +108,9 @@ const NavBar = (props: Props) => {
           ))}
         </List>
       </Navbar.Section>
-      <Avatar radius={36} ml="auto" />
+      <Box ml="auto">
+        <ProfileMenu />
+      </Box>
     </Navbar>
   );
 };
