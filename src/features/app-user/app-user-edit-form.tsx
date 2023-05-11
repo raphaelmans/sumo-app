@@ -9,12 +9,11 @@ import {
 } from "@mantine/core";
 import { AppUser } from "@types";
 import React from "react";
-import { AppUserStatus, EditAppUserForm } from "./types";
+import { EditAppUserForm } from "./types";
 import { useForm } from "react-hook-form";
 import { editAppUserSchema } from "./form-utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEditUser } from "./hooks";
-import { AppUserEdit } from "@shared/services/app-user-service";
 import { appUserStatus } from "./constants";
 
 type Props = BoxProps & {
@@ -30,11 +29,12 @@ const AppUserEditForm = ({ appUser, ...props }: Props) => {
     resolver: zodResolver(editAppUserSchema),
     mode: "onChange",
     defaultValues: {
-      email: appUser.emailAddress,
+      userName: appUser.userName,
+      emailAddress: appUser.emailAddress,
       firstName: appUser.firstName,
       lastName: appUser.lastName,
       address: appUser.address,
-      status: appUser.status as AppUserStatus,
+      status: appUser.status,
     },
   });
 
@@ -42,14 +42,14 @@ const AppUserEditForm = ({ appUser, ...props }: Props) => {
 
   const onSubmit = (data: EditAppUserForm) => {
     // TODO: UPdate subscriptionCategoryId dynamic
-    const appUserEdit: AppUserEdit = {
+    const appUserEdit: AppUser = {
       id: appUser.id,
-      emailAddress: data.email,
+      emailAddress: data.emailAddress,
       firstName: data.firstName,
       lastName: data.lastName,
       address: data.address,
       status: data.status,
-      userName: data.userName
+      userName: data.userName,
     };
     editUser({
       data: appUserEdit,
@@ -67,38 +67,58 @@ const AppUserEditForm = ({ appUser, ...props }: Props) => {
     <Box component="form" maw={500} onSubmit={handleSubmit(onSubmit, onError)}>
       <Stack px={48} py={24}>
         <Input.Wrapper
+          label="Username"
+          w="100%"
+          error={errors?.userName?.message?.toString()}
+        >
+          <Input
+            placeholder="Enter username"
+            type="text"
+            {...register("userName")}
+          />
+        </Input.Wrapper>
+        <Input.Wrapper
           label="Email"
           w="100%"
-          error={errors?.email?.message?.toString()}
+          error={errors?.emailAddress?.message?.toString()}
         >
-          <Input type="text" placeholder="" {...register("email")} />
+          <Input
+            type="text"
+            placeholder="Enter email"
+            {...register("emailAddress")}
+          />
         </Input.Wrapper>
-        <Input.Wrapper
-          label="First Name"
-          w="100%"
-          error={errors?.firstName?.message?.toString()}
-        >
-          <Input type="text" placeholder="" {...register("firstName")} />
+        <Input.Wrapper label="First Name" w="100%">
+          <Input
+            type="text"
+            placeholder="Enter first name"
+            {...register("firstName")}
+          />
         </Input.Wrapper>
-        <Input.Wrapper
-          label="Last Name"
-          w="100%"
-          error={errors?.lastName?.message?.toString()}
-        >
-          <Input type="text" placeholder="" {...register("lastName")} />
+        <Input.Wrapper label="Last Name" w="100%">
+          <Input
+            type="text"
+            placeholder="Enter last name"
+            {...register("lastName")}
+          />
         </Input.Wrapper>
         <Input.Wrapper
           label="Address"
           error={errors?.address?.message?.toString()}
           w="100%"
         >
-          <Input type="text" placeholder="" {...register("address")} />
+          <Input
+            type="text"
+            placeholder="Enter address"
+            {...register("address")}
+          />
         </Input.Wrapper>
         <NativeSelect
           label="Status"
           placeholder="Choose"
           data={appUserStatus.map((value) => ({ label: value, value }))}
           error={errors?.status?.message?.toString()}
+          w="100%"
           {...register("status")}
         />
         <Group mt={28}>
@@ -109,7 +129,7 @@ const AppUserEditForm = ({ appUser, ...props }: Props) => {
             loading={isMutating}
             disabled={!isValid}
           >
-            EDIT
+            Edit
           </Button>
         </Group>
       </Stack>

@@ -47,14 +47,13 @@ export type RegisterAuthUser = {
 
 // User
 export type AppUser = {
-  id: number;
+  id: string;
   userName: string;
   emailAddress: string;
   firstName: string;
   lastName: string;
   address: string;
   status: AppUserStatus;
-  isAdmin?: boolean;
 };
 
 // AuditLog

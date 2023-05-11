@@ -23,9 +23,9 @@ export const AppUserService = {
         id: id,
       },
     }),
-  editAppUserById: (data: AppUserEdit) =>
+  editAppUserById: (data: AppUser) =>
     baseFetcher.put(AppUserRoutes.editAppUserById, data),
-  deleteAppUserById: (id: number) =>
+  deleteAppUserById: (id: string) =>
     baseFetcher.delete(AppUserRoutes.deleteAppUserById, {
       params: {
         id,
@@ -34,11 +34,10 @@ export const AppUserService = {
 };
 
 export type AppUserCreate = Omit<AppUser, "id">;
-export type AppUserEdit = AppUser;
 export const editAppUserMutation: MutationFetcher<
   AxiosResponse,
   {
-    data: AppUserEdit;
+    data: AppUser;
   },
   string
 > = (_, { arg }) => AppUserService.editAppUserById(arg.data);
@@ -46,7 +45,7 @@ export const editAppUserMutation: MutationFetcher<
 export const deleteAppUserMutation: MutationFetcher<
   AxiosResponse,
   {
-    id: number;
+    id: string;
   },
   string
 > = async (_, { arg }) => {
