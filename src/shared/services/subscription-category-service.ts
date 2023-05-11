@@ -1,6 +1,7 @@
 import baseFetcher from "@shared/api";
+import { generateConfigHeaderToken } from "@shared/utils";
 import { SubscriptionCategory } from "@types";
-import { AxiosResponse } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 
 import { MutationFetcher } from "swr/mutation";
 
@@ -10,14 +11,25 @@ export const SubscriptionCategoryAPIRoutes = {
 };
 
 export const SubscriptionCategoryKey = {
-  createSubscriptionCategory:  SubscriptionCategoryAPIRoutes.createSubscriptionCategory+'/new',
-}
+  createSubscriptionCategory:
+    SubscriptionCategoryAPIRoutes.createSubscriptionCategory + "/new",
+};
 
 export const SubscriptionCategoryService = {
-  getAllSubscriptionCategories: () =>
-    baseFetcher.get<SubscriptionCategory[]>(SubscriptionCategoryAPIRoutes.getAllSubscriptionCategories),
-  createSubscriptionCategory: (sub: SubscriptionCategoryCreate) =>
-    baseFetcher.post<string>(SubscriptionCategoryAPIRoutes.createSubscriptionCategory, sub),
+  getAllSubscriptionCategories: (config?: AxiosRequestConfig) =>
+    baseFetcher.get<SubscriptionCategory[]>(
+      SubscriptionCategoryAPIRoutes.getAllSubscriptionCategories,
+      config
+    ),
+  createSubscriptionCategory: (
+    sub: SubscriptionCategoryCreate,
+    config?: AxiosRequestConfig
+  ) =>
+    baseFetcher.post<string>(
+      SubscriptionCategoryAPIRoutes.createSubscriptionCategory,
+      sub,
+      config
+    ),
 };
 
 export type SubscriptionCategoryCreate = Omit<SubscriptionCategory, "id">;
@@ -26,5 +38,9 @@ export const createSubscriptionCategoryMutation: MutationFetcher<
   {
     data: SubscriptionCategoryCreate;
   },
-  string
-> = (_, { arg }) => SubscriptionCategoryService.createSubscriptionCategory(arg.data);
+  [string, string]
+> = ([_, token], { arg }) =>
+  SubscriptionCategoryService.createSubscriptionCategory(
+    arg.data,
+    generateConfigHeaderToken(token)
+  );

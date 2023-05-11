@@ -1,3 +1,4 @@
+import useAuthToken from "@features/auth/hooks/use-auth-token";
 import {
   SubscriptionCategoryKey,
   createSubscriptionCategoryMutation,
@@ -6,13 +7,15 @@ import {
 import useSWRMutation from "swr/mutation";
 
 export const useCreateSubscriptionCategory = () => {
+  const { token } = useAuthToken();
+
   const {
     trigger: createSubscriptionCategory,
     data,
     isMutating,
     error,
   } = useSWRMutation(
-    SubscriptionCategoryKey.createSubscriptionCategory,
+    [SubscriptionCategoryKey.createSubscriptionCategory, token ?? ""],
     createSubscriptionCategoryMutation
   );
 

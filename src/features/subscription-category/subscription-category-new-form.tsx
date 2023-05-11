@@ -5,7 +5,8 @@ import { SubscriptionCategoryCreate } from "@shared/services/subscription-catego
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createSubscriptionCategorySchema } from "./form-utils";
 import { useForm } from "react-hook-form";
-import { useCreateSubscriptionCategory, useSubscriptionCategories } from "./hooks";
+import { useCreateSubscriptionCategory } from "./hooks";
+import { notifications } from "@mantine/notifications";
 
 type Props = {};
 
@@ -22,14 +23,28 @@ const SubscriptionCategoryNewForm = (props: Props) => {
   const { createSubscriptionCategory, isMutating } =
     useCreateSubscriptionCategory();
 
-  const onSubmit = (data: CreateSubscriptionCategoryForm) => {
+  const onSubmit = async (data: CreateSubscriptionCategoryForm) => {
     // TODO: UPdate subscriptionCategoryId dynamic
     const subscriptionCreate: SubscriptionCategoryCreate = {
       categoryName: data.categoryName,
     };
-    createSubscriptionCategory({
-      data: subscriptionCreate,
-    });
+
+    try {
+      await createSubscriptionCategory({
+        data: subscriptionCreate,
+      });
+      notifications.show({
+        title: "Success",
+        message: "Category created successfully",
+        color: "green",
+      });
+    } catch (e) {
+      notifications.show({
+        title: "Failed",
+        message: "Category failed to create",
+        color: "red",
+      });
+    }
   };
 
   const onError = (error: any) => {
@@ -47,8 +62,10 @@ const SubscriptionCategoryNewForm = (props: Props) => {
           w="100%"
           error={errors?.categoryName?.message}
         >
-          <Input type="text" placeholder="Entertainment" 
-          {...register('categoryName')}
+          <Input
+            type="text"
+            placeholder="Entertainment"
+            {...register("categoryName")}
           />
         </Input.Wrapper>
         <Group mt={28}>
